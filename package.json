@@ -12,6 +12,12 @@
     "@nuxt/devtools": "latest",
     "@types/node": "^18.16.19",
     "nuxt": "^3.6.2",
-    "nuxt-chatgpt": "^0.1.10"
+    "nuxt-chatgpt": "^0.1.10",
+    "nuxt-icon": "^0.4.2",
+    "vuetify": "^3.3.8"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.2.96",
+    "sass": "^1.63.6"
   }
 }
