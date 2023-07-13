@@ -67,16 +67,20 @@
                         <li class="content-item">
                             <div class="content-item-title">
                                 <h4>Keywords Count</h4>
-                                <v-chip color="var(--color-primary)">{{ keywordsCount }}</v-chip>
+                                <ClientOnly>
+                                    <v-chip color="var(--color-primary)">{{ keywordsCount }}</v-chip>
+                                </ClientOnly>
                             </div>
-                            <v-slider 
-                                v-model="keywordsCount"
-                                min="0"
-                                max="20"
-                                step="1"
-                                color="var(--color-primary)"
-                                track-color="var(--color-text-alt-light)"
-                            ></v-slider>
+                            <ClientOnly>
+                                <v-slider 
+                                    v-model="keywordsCount"
+                                    min="0"
+                                    max="20"
+                                    step="1"
+                                    color="var(--color-primary)"
+                                    track-color="var(--color-text-alt-light)"
+                                ></v-slider>
+                            </ClientOnly>
                         </li>
                         <button @click.prevent="generateMetadata" class="cta-btn"><Icon name="fa6-solid:bolt"/>Generate</button>
                     </ul>

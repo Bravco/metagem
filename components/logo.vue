@@ -1,9 +1,11 @@
 <template>
     <div>
-        <NuxtLink class="logo" to="/">
-            <Icon class="icon" name="fa6-solid:brain"/>
-            metagen<span>.</span>
-        </NuxtLink>
+        <ClientOnly>
+            <NuxtLink class="logo" to="/">
+                <Icon class="icon" name="fa6-solid:brain"/>
+                metagen<span>.</span>
+            </NuxtLink>
+        </ClientOnly>
     </div>
 </template>
 
