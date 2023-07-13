@@ -2,7 +2,7 @@
     <div>
         <div class="heading">
             <h1>Metadata generator</h1>
-            <p>Optimize your SEO for business development. Powered by AI.</p>
+            <p>Optimize your SEO for business development and company growth. Powered by AI.</p>
         </div>
         <div class="wrapper">
             <div class="container">
@@ -141,7 +141,11 @@
                         </li>
                     </ul>
                 </div>
-                <div class="divider"/>
+                <div class="divider">
+                    <div class="divider-line"/>
+                    <Icon class="divider-icon" name="fa6-solid:angle-right" size="1.5rem"/>
+                    <div class="divider-line"/>
+                </div>
                 <div class="content-wrapper">
                     <h3>PREVIEW</h3>
                 </div>
@@ -197,7 +201,7 @@
         const titleMsg = `Generate short metadata title for website: ${websiteDescription.value}`;
         const generatedTitle = await chat(titleMsg)
         generatedTitle.replaceAll('"', "");
-        newResponse.title = generatedTitle
+        newResponse.title = websiteTitle.value.concat(" - ", generatedTitle);
 
         const descriptionMsg = `Generate metadata description with length of ${descriptionLength.value} words for website: ${websiteDescription.value}`;
         const generatedDescription = await chat(descriptionMsg);
@@ -208,7 +212,7 @@
             const keywordMsg = `Generate ${keywordsCount.value} metadata keywords in a single line without list style for website: ${websiteDescription.value}`;
             const rawKeywords = await chat(keywordMsg);
             const generatedKeywords = rawKeywords.split(", ");
-            newResponse.keywords = generatedKeywords
+            newResponse.keywords = generatedKeywords;
         }
 
         responses.value.push(newResponse);
@@ -230,16 +234,32 @@
     }
 
     .container {
-        height: 100%;
         display: flex;
         justify-content: space-between;
         border-radius: .5rem;
         background-color: var(--color-background-secondary);
     }
 
+    .container:first-of-type {
+        height: min-content;
+    }
+
     .divider {
         height: 100%;
+        display: grid;
+        grid-template-rows: 1fr calc(1rem + 2rem) 1fr;
+        padding: 2rem 0;
+    }
+    
+    .divider-line {
+        width: min-content;
+        margin: 0 auto;
         border: 1px solid var(--color-text-alt-light);
+    }
+
+    .divider-icon {
+        align-self: center;
+        color: var(--color-text-alt-dark);
     }
 
     .content-wrapper {
