@@ -9,6 +9,17 @@ export default defineNuxtConfig({
     "vuetify/lib/styles/main.sass",
     "@/assets/main.css",
   ],
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
   chatgpt: {
     apiKey: process.env.OPENAI_API_KEY,
   },

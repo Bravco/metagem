@@ -11,7 +11,7 @@
                     <ul class="content-list">
                         <li class="content-item">
                             <div class="content-item-title">
-                                <h4>Preview Image</h4>
+                                <h4>Preview image</h4>
                                 <h4>recommended 1200x628</h4>
                             </div>
                             <a class="img-upload">
@@ -22,7 +22,7 @@
                             </a>
                         </li>
                         <li class="content-item">
-                            <h4 class="content-item-title">Website Title</h4>
+                            <h4 class="content-item-title">Website title</h4>
                             <textarea 
                                 v-model="websiteTitle" 
                                 name="website-title" 
@@ -42,7 +42,7 @@
                             ></textarea>
                         </li>
                         <li class="content-item">
-                            <h4 class="content-item-title">Description Length</h4>
+                            <h4 class="content-item-title">Description length</h4>
                             <ul class="choice-list">
                                 <li>
                                     <a 
@@ -66,7 +66,7 @@
                         </li>
                         <li class="content-item">
                             <div class="content-item-title">
-                                <h4>Keywords Count</h4>
+                                <h4>Keywords count</h4>
                                 <ClientOnly>
                                     <v-chip color="var(--color-primary)">{{ keywordsCount }}</v-chip>
                                 </ClientOnly>
