@@ -6,12 +6,12 @@
                 <ul class="nav-list">
                     <li class="nav-item">
                         <ClientOnly>
-                            <NuxtLink to="/">Home</NuxtLink>
+                            <NuxtLink class="nav-link" to="/">Home</NuxtLink>
                         </ClientOnly>
                     </li>
                     <li class="nav-item">
                         <ClientOnly>
-                            <NuxtLink to="/app">App</NuxtLink>
+                            <NuxtLink class="nav-link" to="/app">App</NuxtLink>
                         </ClientOnly>
                     </li>
                 </ul>
@@ -47,7 +47,34 @@
         font-weight: 500;
     }
 
+    .nav-link {
+        position: relative;
+    }
+
+    .nav-link:hover::after {
+        animation: underline 200ms ease-in-out forwards;
+    }
+
+    .nav-link::after {
+        content: "";
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: var(--color-primary);
+    }
+
     .router-link-exact-active {
         color: var(--color-primary);
+    }
+
+    @keyframes underline {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 100%;
+        }
     }
 </style>
