@@ -90,15 +90,19 @@
                 <div class="content-wrapper">
                     <h3>METADATA</h3>
                     <ul class="content-list">
-                        <li v-for="response in responses" :key="response" class="content-item">
+                        <li 
+                            v-for="(response, index) in responses" 
+                            :key="index"
+                            :class="['content-item', { active: selectedResponseIndex === index }]"
+                        >
                             <h4 class="content-item-title">Today • 11:19AM</h4>
-                            <div class="response-container">
+                            <div @click.prevent="selectedResponseIndex = index" class="response-container">
                                 <div>
                                     <p class="response-author">{{ response.author }}</p>
                                     <h3>{{ response.title }}</h3>
                                 </div>
                                 <p>{{ response.description }}</p>
-                                <ul class="keyword-list">
+                                <ul v-if="selectedResponseIndex === index" class="keyword-list">
                                     <li v-for="(keyword, index) in response.keywords" :key="index" class="keyword-item">
                                         <input
                                             v-model="response.keywords[index]" type="text" 
@@ -113,7 +117,7 @@
                                         <Icon name="fa6-solid:plus" size="1rem"/>
                                     </button>
                                 </ul>
-                                <div class="response-footer">
+                                <div v-if="selectedResponseIndex === index" class="response-footer">
                                     <div class="feedback">
                                         <button 
                                             @click.prevent="setResponseFeedback(1)" 
@@ -129,9 +133,23 @@
                                         </button>
                                     </div>
                                     <div class="actions">
-                                        <button class="code-btn">
-                                            <Icon name="fa6-solid:code" size="1rem"/>
-                                        </button>
+                                        <v-dialog v-model="codeDialog" width="auto">
+                                            <template v-slot:activator="{ props }">
+                                                <button v-bind="props" class="code-btn">
+                                                    <Icon name="fa6-solid:code" size="1rem"/>
+                                                </button>
+                                            </template>
+                                            <v-card>
+                                                <v-card-item>
+                                                    <v-card-subtitle>{{ responses[selectedResponseIndex].author }}</v-card-subtitle>
+                                                    <v-card-title>{{ responses[selectedResponseIndex].title }}</v-card-title>
+                                                </v-card-item>
+                                                <v-card-text>{{ responses[selectedResponseIndex].description }}</v-card-text>
+                                                <v-card-actions>
+                                                    <v-btn @click.prevent="codeDialog = false" block color="var(--color-primary)">Close</v-btn>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
                                         <button @click.prevent="deleteResponse(response)" class="delete-btn">
                                             <Icon name="fa6-solid:trash-can" size="1rem"/>
                                         </button>
@@ -161,31 +179,48 @@
     const websiteDescription = ref("");
     const descriptionLength = ref(15);
     const keywordsCount = ref(10);
-    const responses = ref([]);
-    const currentResponseIndex = ref(0);
+    const responses = ref([
+        {
+            author: "author",
+            title: "generated title",
+            description: "generated description which is not the same as title above",
+        },
+        {
+            author: "author",
+            title: "generated title",
+            description: "generated description which is not the same as title above",
+        },
+        {
+            author: "author",
+            title: "generated title",
+            description: "generated description which is not the same as title above",
+        },
+    ]);
+    const selectedResponseIndex = ref(0);
+    const codeDialog = ref(false);
 
     function setDescriptionLength(length) {
         descriptionLength.value = length;
     }
 
     function addKeyword() {
-        if (responses.value[currentResponseIndex.value].keywords) {
-            responses.value[currentResponseIndex.value].keywords.push("New Keyword");
+        if (responses.value[selectedResponseIndex.value].keywords) {
+            responses.value[selectedResponseIndex.value].keywords.push("New Keyword");
         } else {
-            responses.value[currentResponseIndex.value].keywords = ["New Keyword"];
+            responses.value[selectedResponseIndex.value].keywords = ["New Keyword"];
         }
     }
 
     function removeKeyword(keyword) {
-        responses.value[currentResponseIndex.value].keywords.pop(keyword);
+        responses.value[selectedResponseIndex.value].keywords.pop(keyword);
     }
 
     function setResponseFeedback(value) {
-        if (responses.value[currentResponseIndex.value].feedback && 
-            (responses.value[currentResponseIndex.value].feedback === value)) {
-            delete responses.value[currentResponseIndex.value].feedback;
+        if (responses.value[selectedResponseIndex.value].feedback && 
+            (responses.value[selectedResponseIndex.value].feedback === value)) {
+            delete responses.value[selectedResponseIndex.value].feedback;
         } else {
-            responses.value[currentResponseIndex.value].feedback = value;
+            responses.value[selectedResponseIndex.value].feedback = value;
         }
     }
 
@@ -346,12 +381,17 @@
         background-color: var(--color-primary); 
     }
 
+    .content-item.active .response-container {
+        border: 2px solid var(--color-primary);
+    }
+
     .response-container {
         display: grid;
         gap: .5rem;
         padding: 1.5rem 2rem;
         border-radius: .5rem;
         background-color: var(--color-background-primary);
+        cursor: pointer;
     }
 
     .response-author {

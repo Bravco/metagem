@@ -16,10 +16,6 @@
     --color-text-alt-dark: #808080;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 li {
     list-style: none;
 }
@@ -67,6 +63,6 @@ textarea {
     font-size: 1.125rem;
     font-weight: bold;
     color: white;
-    background: linear-gradient(135deg, #37FDF1 0%, #377FEC 35.94%, #374BFD 66.15%, #37E5FD 100%);
+    background: linear-gradient(135deg, #37FDFD 0%, #37ECC0 28.65%, #3792FD 67.19%, #37E5FD 100%);
     box-shadow: 0px 4px 20px 0px rgba(55, 84, 250, 0.50);
 }
