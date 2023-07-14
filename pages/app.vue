@@ -67,20 +67,16 @@
                         <li class="content-item">
                             <div class="content-item-title">
                                 <h4>Keywords count</h4>
-                                <ClientOnly>
-                                    <v-chip color="var(--color-primary)">{{ keywordsCount }}</v-chip>
-                                </ClientOnly>
+                                <v-chip color="var(--color-primary)">{{ keywordsCount }}</v-chip>
                             </div>
-                            <ClientOnly>
-                                <v-slider 
-                                    v-model="keywordsCount"
-                                    min="0"
-                                    max="20"
-                                    step="1"
-                                    color="var(--color-primary)"
-                                    track-color="var(--color-text-alt-light)"
-                                ></v-slider>
-                            </ClientOnly>
+                            <v-slider 
+                                v-model="keywordsCount"
+                                min="0"
+                                max="20"
+                                step="1"
+                                color="var(--color-primary)"
+                                track-color="var(--color-text-alt-light)"
+                            ></v-slider>
                         </li>
                         <button @click.prevent="generateMetadata" class="cta-btn"><Icon name="fa6-solid:bolt"/>Generate</button>
                     </ul>
@@ -185,16 +181,6 @@
             title: "generated title",
             description: "generated description which is not the same as title above",
         },
-        {
-            author: "author",
-            title: "generated title",
-            description: "generated description which is not the same as title above",
-        },
-        {
-            author: "author",
-            title: "generated title",
-            description: "generated description which is not the same as title above",
-        },
     ]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
@@ -235,8 +221,8 @@
 
         const titleMsg = `Generate short metadata title for website: ${websiteDescription.value}`;
         const generatedTitle = await chat(titleMsg)
-        generatedTitle.replaceAll('"', "");
-        newResponse.title = websiteTitle.value.concat(" - ", generatedTitle);
+        const formattedTitle = generatedTitle.replaceAll('"', "");
+        newResponse.title = websiteTitle.value.concat(" - ", formattedTitle);
 
         const descriptionMsg = `Generate metadata description with length of ${descriptionLength.value} words for website: ${websiteDescription.value}`;
         const generatedDescription = await chat(descriptionMsg);

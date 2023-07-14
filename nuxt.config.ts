@@ -3,10 +3,9 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-chatgpt",
     "nuxt-icon",
+    "@invictus.codes/nuxt-vuetify",
   ],
   css: [
-    "@mdi/font/css/materialdesignicons.css",
-    "vuetify/lib/styles/main.sass",
     "@/assets/main.css",
   ],
   app: {
@@ -20,18 +19,10 @@ export default defineNuxtConfig({
       },
     },
   },
-  chatgpt: {
-    apiKey: process.env.OPENAI_API_KEY,
-  },
-  build: {
-    transpile: ["vuetify"],
-  },
   nitro: {
     compressPublicAssets: true,
   },
-  vite: {
-    define: {
-      "process.env.DEBUG": false,
-    },
+  chatgpt: {
+    apiKey: process.env.OPENAI_API_KEY,
   },
 });

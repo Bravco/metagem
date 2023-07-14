@@ -5,14 +5,10 @@
                 <Logo/>
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <ClientOnly>
-                            <NuxtLink class="nav-link" to="/">Home</NuxtLink>
-                        </ClientOnly>
+                        <NuxtLink class="nav-link" to="/">Home</NuxtLink>
                     </li>
                     <li class="nav-item">
-                        <ClientOnly>
-                            <NuxtLink class="nav-link" to="/app">App</NuxtLink>
-                        </ClientOnly>
+                        <NuxtLink class="nav-link" to="/app">App</NuxtLink>
                     </li>
                 </ul>
                 <button @click.prevent="navigateTo('/app')" class="cta-btn">
