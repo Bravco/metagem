@@ -12,14 +12,27 @@
                         <li class="content-item">
                             <div class="content-item-title">
                                 <h4>Preview image</h4>
-                                <h4>recommended 1200x628</h4>
+                                <h4>recommended 1200x630</h4>
                             </div>
-                            <a class="img-upload">
-                                <div class="icon-container">
-                                    <Icon name="fa6-solid:arrow-up" size="1.25rem"/>
-                                </div>
-                                <p>Upload an image</p>
-                            </a>
+                            <div class="preview-img-container">
+                                <img v-if="previewImg" class="preview-img" :src="previewImg" alt="preview-image">
+                                <a v-else @click.prevent="focusPreviewImgInput" class="preview-img-placeholder">
+                                    <div class="icon-container">
+                                        <Icon name="fa6-solid:arrow-up" size="1.25rem"/>
+                                    </div>
+                                    <p>Upload an image</p>
+                                </a>
+                            </div>
+                            <v-file-input
+                                id="preview-img-input"
+                                v-model="rawPreviewImg"
+                                @update:model-value="updatePreviewImg"
+                                @click:clear="previewImg = null"
+                                accept="image/*"
+                                label="Upload an image"
+                                prepend-icon=""
+                                prepend-inner-icon="mdi-image"
+                            />
                         </li>
                         <li class="content-item">
                             <h4 class="content-item-title">Website title</h4>
@@ -93,7 +106,11 @@
                             :key="index"
                             :class="['content-item', { active: selectedResponseIndex === index }]"
                         >
-                            <h4 class="content-item-title">Today • 11:19AM</h4>
+                            <h4 class="content-item-title">
+                                {{ response.createdDate.getUTCHours() }}:{{ response.createdDate.getUTCMinutes() }}
+                                •
+                                {{ response.createdDate.getUTCDay() }}/{{ response.createdDate.getUTCMonth() }}/{{ response.createdDate.getUTCFullYear() }}
+                            </h4>
                             <div @click.prevent="selectedResponseIndex = index" class="response-container">
                                 <div>
                                     <p class="response-author">{{ response.author }}</p>
@@ -152,8 +169,15 @@
 &lt;meta name="description" content="{{ response.description }}"&gt;
 {{ response.keywords ? `&lt;meta name="keywords" content="${response.keywords.join(", ")}"&gt;\n` : "" }}
 &lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:url" content="PASTE YOUR WEBSITE URL HERE"&gt;
 &lt;meta property="og:title" content="{{ response.title }}"&gt;
-&lt;meta property="og:description" content="{{ response.description }}"&gt;</code></pre>
+&lt;meta property="og:description" content="{{ response.description }}"&gt;
+&lt;meta property="og:image" content="PASTE YOUR IMAGE PATH HERE"&gt;
+
+&lt;meta property="twitter:card" content="summary_large_image"&gt;
+&lt;meta property="twitter:title" content="{{ response.title }}"&gt;
+&lt;meta property="twitter:description" content="{{ response.description }}"&gt;
+&lt;meta property="twitter:image" content="PASTE YOUR IMAGE URL"&gt;</code></pre>
                                                 <div class="dialog-footer">
                                                     <p>Copy into your website's <span>&lt;head&gt;</span> tag.</p>
                                                     <v-btn 
@@ -190,15 +214,38 @@
 
 <script setup>
     const { chat } = useChatgpt()
+    const reader = new FileReader();
 
     const websiteTitle = ref("");
     const websiteDescription = ref("");
     const descriptionLength = ref(15);
     const keywordsCount = ref(10);
-    const responses = ref([]);
+    const rawPreviewImg = ref(null);
+    const previewImg = ref(null);
+    const responses = ref([{
+        createdDate: new Date,
+        author: "author",
+        title: "title",
+        description: "description",
+    }]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
     const isCopied = ref(false);
+
+    reader.onload = function(event) {
+        const dataURL = event.target.result;
+        previewImg.value = dataURL;
+    }
+
+    function updatePreviewImg() {
+        if (rawPreviewImg.value && rawPreviewImg.value.length !== 0) {
+            reader.readAsDataURL(rawPreviewImg.value[0]);
+        }
+    }
+
+    function focusPreviewImgInput() {
+        document.getElementById('preview-img-input').focus();
+    }
 
     function setDescriptionLength(length) {
         descriptionLength.value = length;
@@ -242,8 +289,11 @@
     }
 
     async function generateMetadata() {
+        if (websiteTitle.value === "" || websiteDescription.value === "") return;
+
         let newResponse = {};
 
+        newResponse.createdDate = new Date;
         newResponse.author = websiteTitle.value;
 
         const titleMsg = `Generate short metadata title for website: ${websiteDescription.value}`;
@@ -339,7 +389,18 @@
         color: var(--color-text-alt-dark);
     }
 
-    .img-upload {
+    .preview-img-container, .preview-img-container img, .preview-img-placeholder {
+        width: 100%;
+        height: 12rem;
+        border-radius: .5rem;
+    }
+
+    .preview-img-container img {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .preview-img-placeholder {
         display: grid;
         place-items: center;
         gap: 0.5rem;
@@ -350,7 +411,7 @@
         background: linear-gradient(180deg, rgba(0, 255, 194, 0.00) 0%, rgba(0, 255, 194, 0.50) 0.01%, rgba(55, 253, 205, 0.50) 48.44%, rgba(55, 146, 253, 0.50) 100%);
     }
 
-    .img-upload .icon-container {
+    .preview-img-placeholder .icon-container {
         width: 3rem;
         height: 3rem;
         display: grid;
