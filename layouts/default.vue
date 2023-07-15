@@ -2,7 +2,7 @@
     <div>
         <header>
             <nav>
-                <Logo/>
+                <Logo :interactable="true"/>
                 <ul class="nav-list">
                     <li class="nav-item">
                         <NuxtLink class="nav-link" to="/">Home</NuxtLink>

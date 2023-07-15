@@ -10,7 +10,8 @@
 :root {
     --color-primary: #2BE4CF;
     --color-background-primary: white;
-    --color-background-secondary: #EEE;
+    --color-background-secondary-light: #ebf1fa;
+    --color-background-secondary-dark: #e0e8f3;
     --color-text: black;
     --color-text-alt-light: #BFBFBF;
     --color-text-alt-dark: #808080;

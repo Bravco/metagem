@@ -135,16 +135,33 @@
                                                     <Icon name="fa6-solid:code" size="1rem"/>
                                                 </button>
                                             </template>
-                                            <v-card>
-                                                <v-card-item>
-                                                    <v-card-subtitle>{{ responses[selectedResponseIndex].author }}</v-card-subtitle>
-                                                    <v-card-title>{{ responses[selectedResponseIndex].title }}</v-card-title>
-                                                </v-card-item>
-                                                <v-card-text>{{ responses[selectedResponseIndex].description }}</v-card-text>
-                                                <v-card-actions>
-                                                    <v-btn @click.prevent="codeDialog = false" block color="var(--color-primary)">Close</v-btn>
-                                                </v-card-actions>
-                                            </v-card>
+                                            <div class="dialog-container">
+                                                <button @click.prevent="codeDialog = false" class="dialog-close-btn">
+                                                    <Icon name="fa6-solid:xmark"/>
+                                                </button>
+                                                <Logo/>
+                                                <p class="dialog-subtitle">Generated with AI</p>
+<pre><code id="meta-code">&lt;title&gt;{{ response.title }}&lt;/title&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+&lt;meta name="author" content="{{ response.author }}"&gt;
+&lt;meta name="title" content="{{ response.title }}"&gt;
+&lt;meta name="description" content="{{ response.description }}"&gt;
+{{ response.keywords ? `&lt;meta name="keywords" content="${response.keywords.join(", ")}"&gt;\n` : "" }}
+&lt;meta property="og:title" content="{{ response.title }}"&gt;
+&lt;meta property="og:description" content="{{ response.description }}"&gt;</code></pre>
+                                                <div class="dialog-footer">
+                                                    <p>Copy into your website's <span>&lt;head&gt;</span> tag.</p>
+                                                    <v-btn 
+                                                        @click="copyMeta"
+                                                        :prepend-icon="isCopied ? 'mdi-check' : 'mdi-content-copy'" 
+                                                        variant="tonal" 
+                                                        color="var(--color-primary)"
+                                                        :text="isCopied ? 'Copied' : 'Copy'"
+                                                    />
+                                                </div>
+                                            </div>
                                         </v-dialog>
                                         <button @click.prevent="deleteResponse(response)" class="delete-btn">
                                             <Icon name="fa6-solid:trash-can" size="1rem"/>
@@ -184,6 +201,7 @@
     ]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
+    const isCopied = ref(false);
 
     function setDescriptionLength(length) {
         descriptionLength.value = length;
@@ -199,6 +217,9 @@
 
     function removeKeyword(keyword) {
         responses.value[selectedResponseIndex.value].keywords.pop(keyword);
+        if (responses.value[selectedResponseIndex.value].keywords.length === 0) {
+            delete responses.value[selectedResponseIndex.value].keywords;
+        }
     }
 
     function setResponseFeedback(value) {
@@ -212,6 +233,15 @@
 
     function deleteResponse(response) {
         responses.value.pop(response);
+    }
+
+    function copyMeta() {
+        const metaCode = document.getElementById("meta-code");
+        navigator.clipboard.writeText(metaCode.innerText);
+        isCopied.value = true;
+        setTimeout(() => {
+            isCopied.value = false;
+        }, 1000);
     }
 
     async function generateMetadata() {
@@ -258,7 +288,7 @@
         display: flex;
         justify-content: space-between;
         border-radius: .5rem;
-        background-color: var(--color-background-secondary);
+        background-color: var(--color-background-secondary-light);
     }
 
     .container:first-of-type {
@@ -394,7 +424,7 @@
 
     .keyword-item, .keyword-add {
         border-radius: .5em;
-        background-color: var(--color-background-secondary);
+        background-color: var(--color-background-secondary-light);
     }
 
     .keyword-item {
@@ -436,7 +466,7 @@
         display: grid;
         place-items: center;
         border-radius: 50%;
-        background-color: var(--color-background-secondary);
+        background-color: var(--color-background-secondary-light);
     }
 
     .code-btn {
@@ -445,5 +475,48 @@
 
     .delete-btn {
         color: #FF2681;
+    }
+
+    .dialog-container {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        border-radius: .5rem;
+        background-color: var(--color-background-primary);
+    }
+
+    .dialog-close-btn {
+        align-self: flex-end;
+        color: var(--color-text-alt-light);
+    }
+
+    .dialog-subtitle {
+        margin-bottom: 1rem;
+        text-align: center;
+        font-size: .75rem;
+        font-weight: bold;
+        color: var(--color-text-alt-light);
+    }
+
+    .dialog-container pre {
+        padding: 1rem;
+        overflow-x: auto;
+        border-radius: .5rem .5rem 0 0;
+        background-color: var(--color-background-secondary-light);
+    }
+
+    .dialog-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-radius: 0 0 .5rem .5rem;
+        background-color: var(--color-background-secondary-dark);
+    }
+
+    .dialog-footer span {
+        padding: .125rem .25rem;
+        border: 1px solid var(--color-text-alt-dark);
+        border-radius: .5rem;
     }
 </style>
