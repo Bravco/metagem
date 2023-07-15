@@ -28,6 +28,7 @@
                                 name="website-title" 
                                 id="website-title" 
                                 rows="1"
+                                maxlength="32"
                                 placeholder="Athleter"
                             ></textarea>
                         </li>
@@ -37,7 +38,8 @@
                                 v-model="websiteDescription" 
                                 name="website-description" 
                                 id="website-description"
-                                rows="5"
+                                rows="4"
+                                maxlength="128"
                                 placeholder="An ecommerce website which specializes on selling sport clothing, shoes and other accessories for athletes."
                             ></textarea>
                         </li>
@@ -142,13 +144,14 @@
                                                 <Logo/>
                                                 <p class="dialog-subtitle">Generated with AI</p>
 <pre><code id="meta-code">&lt;title&gt;{{ response.title }}&lt;/title&gt;
-&lt;meta charset="UTF-8"&gt;
+&lt;meta charset="utf-8"&gt;
 &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
 
 &lt;meta name="author" content="{{ response.author }}"&gt;
 &lt;meta name="title" content="{{ response.title }}"&gt;
 &lt;meta name="description" content="{{ response.description }}"&gt;
 {{ response.keywords ? `&lt;meta name="keywords" content="${response.keywords.join(", ")}"&gt;\n` : "" }}
+&lt;meta property="og:type" content="website"&gt;
 &lt;meta property="og:title" content="{{ response.title }}"&gt;
 &lt;meta property="og:description" content="{{ response.description }}"&gt;</code></pre>
                                                 <div class="dialog-footer">
@@ -192,13 +195,7 @@
     const websiteDescription = ref("");
     const descriptionLength = ref(15);
     const keywordsCount = ref(10);
-    const responses = ref([
-        {
-            author: "author",
-            title: "generated title",
-            description: "generated description which is not the same as title above",
-        },
-    ]);
+    const responses = ref([]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
     const isCopied = ref(false);
