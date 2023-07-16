@@ -14,9 +14,9 @@
                                 <h4>Preview image</h4>
                                 <h4>recommended 1200x630</h4>
                             </div>
-                            <div class="preview-img-container">
-                                <img v-if="previewImg" class="preview-img" :src="previewImg" alt="preview-image">
-                                <a v-else @click.prevent="focusPreviewImgInput" class="preview-img-placeholder">
+                            <div class="input-preview-img-container">
+                                <img v-if="previewImg" :src="previewImg" alt="preview-image">
+                                <a v-else @click.prevent="focusPreviewImgInput" class="input-preview-img-placeholder">
                                     <div class="icon-container">
                                         <Icon name="fa6-solid:arrow-up" size="1.25rem"/>
                                     </div>
@@ -435,18 +435,18 @@
         color: var(--color-text-alt-dark);
     }
 
-    .preview-img-container, .preview-img-container img, .preview-img-placeholder {
+    .input-preview-img-container, .input-preview-img-container img, .input-preview-img-placeholder {
         width: 100%;
         height: 12rem;
         border-radius: .5rem;
     }
 
-    .preview-img-container img {
+    .input-preview-img-container img {
         object-fit: cover;
         object-position: center;
     }
 
-    .preview-img-placeholder {
+    .input-preview-img-placeholder {
         display: grid;
         place-items: center;
         gap: 0.5rem;
