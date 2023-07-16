@@ -107,9 +107,9 @@
                             :class="['content-item', { active: selectedResponseIndex === index }]"
                         >
                             <h4 class="content-item-title">
-                                {{ response.createdDate.getUTCHours() }}:{{ response.createdDate.getUTCMinutes() }}
+                                {{ response.createdDate.getHours() }}:{{ response.createdDate.getMinutes() < 10 ? '0' : null }}{{ response.createdDate.getMinutes() }}
                                 •
-                                {{ response.createdDate.getUTCDay() }}/{{ response.createdDate.getUTCMonth() }}/{{ response.createdDate.getUTCFullYear() }}
+                                {{ response.createdDate.getDate() }}/{{ response.createdDate.getMonth()+1 }}/{{ response.createdDate.getFullYear() }}
                             </h4>
                             <div @click.prevent="selectedResponseIndex = index" class="response-container">
                                 <div>
@@ -206,6 +206,52 @@
                 </div>
                 <div class="content-wrapper">
                     <h3>PREVIEW</h3>
+                    <ul v-if="responses.length !== 0" class="content-list">
+                        <li class="content-item">
+                            <h4 class="content-item-title">Google</h4>
+                            <div class="google-container">
+                                <div class="google-heading">
+                                    <div class="google-preview-icon">
+                                        <img v-if="previewImg" :src="previewImg" alt="preview-icon">
+                                    </div>
+                                    <div>
+                                        <p class="preview-text">example.com</p>
+                                        <p class="preview-url preview-text">https://example.com</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="google-title preview-text">{{ responses[selectedResponseIndex].title }}</p>
+                                    <p class="preview-description preview-text">{{ responses[selectedResponseIndex].description }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="content-item">
+                            <h4 class="content-item-title">Twitter</h4>
+                            <div>
+                                <div class="preview-img-container">
+                                    <img v-if="previewImg" :src="previewImg" alt="preview-image">
+                                </div>
+                                <div class="preview-footer">
+                                    <p class="preview-title preview-text">{{ responses[selectedResponseIndex].title }}</p>
+                                    <p class="preview-description preview-text">{{ responses[selectedResponseIndex].description }}</p>
+                                    <p class="preview-url preview-text">example.io</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="content-item">
+                            <h4 class="content-item-title">Open Graph</h4>
+                            <div>
+                                <div class="preview-img-container">
+                                    <img v-if="previewImg" :src="previewImg" alt="preview-image">
+                                </div>
+                                <div class="preview-footer">
+                                    <p class="preview-url preview-text">example.io</p>
+                                    <p class="preview-title preview-text">{{ responses[selectedResponseIndex].title }}</p>
+                                    <p class="preview-description preview-text">{{ responses[selectedResponseIndex].description }}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -225,8 +271,8 @@
     const responses = ref([{
         createdDate: new Date,
         author: "author",
-        title: "title",
-        description: "description",
+        title: "Author - Generated title",
+        description: "This is randomly generated description. Powered by AI. Another dummy sentence for visual placeholder.",
     }]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
@@ -434,9 +480,8 @@
     }
 
     .choice-list {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: .5rem;
     }
 
@@ -576,5 +621,86 @@
         padding: .125rem .25rem;
         border: 1px solid var(--color-text-alt-dark);
         border-radius: .5rem;
+    }
+
+    .preview-text {
+        font-family: arial, sans-serif;
+    }
+
+    .preview-title {
+        font-weight: bold;
+    }
+
+    .preview-description {
+        font-size: .875rem;
+    }
+
+    .preview-url {
+        font-size: .75rem;
+        color: var(--color-text-alt-dark);
+    }
+
+    .preview-img-container {
+        background-color: var(--color-background-secondary-dark);
+    }
+
+    .preview-img-container, .preview-img-container img {
+        width: 100%;
+        height: 16rem;
+        border-radius: .5rem .5rem 0 0;
+    }
+
+    .preview-img-container img {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .preview-footer {
+        padding: .75rem 1rem;
+        border-radius: 0 0 .5rem .5rem;
+        background-color: var(--color-background-primary);
+    }
+
+    .google-container {
+        padding: .75rem 1rem;
+        border-radius: .5rem;
+        background-color: var(--color-background-primary);
+    }
+
+    .google-heading {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .google-preview-icon {
+        background-color: var(--color-background-secondary-dark);
+    }
+
+    .google-preview-icon, .google-preview-icon img {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+    }
+
+    .google-preview-icon img {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .google-title {
+        font-size: 1.125rem;
+        color: #1a0dab;
+        cursor: pointer;
+    }
+
+    .google-title:hover {
+        text-decoration: underline;
+    }
+
+    @media only screen and (max-width: 1280px) {
+        .wrapper {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
