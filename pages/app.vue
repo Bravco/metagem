@@ -268,12 +268,7 @@
     const keywordsCount = ref(10);
     const rawPreviewImg = ref(null);
     const previewImg = ref(null);
-    const responses = ref([{
-        createdDate: new Date,
-        author: "author",
-        title: "Author - Generated title",
-        description: "This is randomly generated description. Powered by AI. Another dummy sentence for visual placeholder.",
-    }]);
+    const responses = ref([]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
     const isCopied = ref(false);
