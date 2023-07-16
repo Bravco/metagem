@@ -169,15 +169,15 @@
 &lt;meta name="description" content="{{ response.description }}"&gt;
 {{ response.keywords ? `&lt;meta name="keywords" content="${response.keywords.join(", ")}"&gt;\n` : "" }}
 &lt;meta property="og:type" content="website"&gt;
-&lt;meta property="og:url" content="PASTE YOUR WEBSITE URL HERE"&gt;
+&lt;meta property="og:url" content="<span class="meta-code-highlight">PASTE YOUR WEBSITE URL HERE</span>"&gt;
 &lt;meta property="og:title" content="{{ response.title }}"&gt;
 &lt;meta property="og:description" content="{{ response.description }}"&gt;
-&lt;meta property="og:image" content="PASTE YOUR IMAGE PATH HERE"&gt;
+&lt;meta property="og:image" content="<span class="meta-code-highlight">PASTE YOUR IMAGE PATH HERE</span>"&gt;
 
 &lt;meta property="twitter:card" content="summary_large_image"&gt;
 &lt;meta property="twitter:title" content="{{ response.title }}"&gt;
 &lt;meta property="twitter:description" content="{{ response.description }}"&gt;
-&lt;meta property="twitter:image" content="PASTE YOUR IMAGE URL"&gt;</code></pre>
+&lt;meta property="twitter:image" content="<span class="meta-code-highlight">PASTE YOUR IMAGE PATH HERE</span>"&gt;</code></pre>
                                                 <div class="dialog-footer">
                                                     <p>Copy into your website's <span>&lt;head&gt;</span> tag.</p>
                                                     <v-btn 
@@ -577,7 +577,7 @@
     }
 
     .delete-btn {
-        color: #FF2681;
+        color: var(--color-red);
     }
 
     .dialog-container {
@@ -606,6 +606,11 @@
         overflow-x: auto;
         border-radius: .5rem .5rem 0 0;
         background-color: var(--color-background-secondary-light);
+    }
+
+    .meta-code-highlight {
+        font-family: unset;
+        color: var(--color-red);
     }
 
     .dialog-footer {
