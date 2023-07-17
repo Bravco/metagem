@@ -8,10 +8,10 @@
                         <NuxtLink class="nav-link" to="/">Home</NuxtLink>
                     </li>
                     <li class="nav-item">
-                        <NuxtLink class="nav-link" to="/app">App</NuxtLink>
+                        <NuxtLink class="nav-link" to="/generator">Generator</NuxtLink>
                     </li>
                 </ul>
-                <button @click.prevent="navigateTo('/app')" class="cta-btn">
+                <button @click.prevent="navigateTo('/generator')" class="cta-btn">
                     Start for free
                     <Icon name="fa6-solid:arrow-right-long"/>
                 </button>

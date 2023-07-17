@@ -269,8 +269,7 @@
 </template>
 
 <script setup>
-    const { chat } = useChatgpt()
-    const reader = new FileReader();
+    const { chat } = useChatgpt();
 
     const websiteTitle = ref("");
     const websiteDescription = ref("");
@@ -283,13 +282,15 @@
     const codeDialog = ref(false);
     const isCopied = ref(false);
 
-    reader.onload = function(event) {
-        const dataURL = event.target.result;
-        previewImg.value = dataURL;
-    }
-
     function updatePreviewImg() {
         if (rawPreviewImg.value && rawPreviewImg.value.length !== 0) {
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const dataURL = event.target.result;
+                previewImg.value = dataURL;
+            }
+
             reader.readAsDataURL(rawPreviewImg.value[0]);
         }
     }
