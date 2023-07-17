@@ -113,10 +113,20 @@
                             </h4>
                             <div @click.prevent="selectedResponseIndex = index" class="response-container">
                                 <div>
-                                    <p class="response-author">{{ response.author }}</p>
-                                    <h3>{{ response.title }}</h3>
+                                    <p 
+                                        class="response-author"
+                                        contenteditable
+                                        @input="(e) => { response.author = e.target.innerText }"
+                                    >{{ response.author }}</p>
+                                    <h3 
+                                        contenteditable 
+                                        @input="(e) => { response.title = e.target.innerText }"
+                                    >{{ response.title }}</h3>
                                 </div>
-                                <p>{{ response.description }}</p>
+                                <p
+                                    contenteditable
+                                    @input="(e) => { response.description = e.target.innerText }"
+                                >{{ response.description }}</p>
                                 <ul v-if="selectedResponseIndex === index" class="keyword-list">
                                     <li v-for="(keyword, index) in response.keywords" :key="index" class="keyword-item">
                                         <input

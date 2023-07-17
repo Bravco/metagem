@@ -40,11 +40,11 @@ a:hover, button:hover {
     filter: opacity(50%);
 }
 
-input, textarea {
+input, textarea, [contenteditable] {
     outline: none;
 }
 
-input {
+input, [contenteditable] {
     border: none;
 }
 
@@ -53,6 +53,12 @@ textarea {
     resize: none;
     padding: .5rem;
     font-size: 1rem;
+}
+
+[contenteditable] {
+    resize: none;
+    font-size: inherit;
+    cursor: pointer;
 }
 
 .cta-btn {
