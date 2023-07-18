@@ -11,8 +11,8 @@
                         <NuxtLink class="nav-link" to="/generator">Generator</NuxtLink>
                     </li>
                 </ul>
-                <button @click.prevent="navigateTo('/generator')" class="cta-btn">
-                    Start for free
+                <button @click.prevent="navigateTo('/generator')" class="btn">
+                    Sign up
                     <Icon name="fa6-solid:arrow-right-long"/>
                 </button>
             </nav>

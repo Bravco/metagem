@@ -93,7 +93,7 @@
                                 track-color="var(--color-text-alt-light)"
                             ></v-slider>
                         </li>
-                        <button @click.prevent="generateMetadata" class="cta-btn"><Icon name="fa6-solid:bolt"/>Generate</button>
+                        <button @click.prevent="generateMetadata" class="btn"><Icon name="fa6-solid:bolt"/>Generate</button>
                     </ul>
                 </div>
             </div>
