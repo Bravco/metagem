@@ -205,16 +205,15 @@
 	}
 
 	.big-bg-text {
-		white-space: nowrap;
 		font-weight: bold;
 		font-size: 7rem;
 		color: rgba(43, 228, 207, .25);
 	}
 
 	.benefit-list {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		align-items: start;
 		gap: 2rem;
 		padding: 4rem 0 8rem 0;
 	}
@@ -230,7 +229,7 @@
 		width: 2px;
 		height: calc(100% + 2rem);
 		position: absolute;
-		right: 0;
+		right: -1rem;
 		top: -1rem;
 		background-color: var(--color-background-secondary);
 	}
@@ -342,6 +341,18 @@
 
 		.about-img {
 			height: 100%;
+		}
+	}
+
+	@media only screen and (max-width: 1480px) {
+		.benefit-list {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+			padding: 4rem 0 8rem 0;
+		}
+
+		.benefit-item:not(:last-child)::after {
+			content: none;
 		}
 	}
 
