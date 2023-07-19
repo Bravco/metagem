@@ -10,12 +10,11 @@
 :root {
     --color-primary: #2BE4CF;
     --color-background-primary: white;
-    --color-background-secondary-light: #ebf1fa;
+    --color-background-secondary: #ebf1fa;
     --color-background-secondary-dark: #e0e8f3;
     --color-text: black;
     --color-text-alt-light: #BFBFBF;
     --color-text-alt-dark: #808080;
-    --color-red: #FF2681;
 }
 
 li {
@@ -42,23 +41,24 @@ a:hover, button:hover {
 
 input, textarea, [contenteditable] {
     outline: none;
-}
-
-input, [contenteditable] {
     border: none;
 }
 
 textarea {
-    border: 1px solid var(--color-text-alt-light);
     resize: none;
     padding: .5rem;
     font-size: 1rem;
+    background-color: var(--color-background-primary);
 }
 
 [contenteditable] {
     resize: none;
     font-size: inherit;
     cursor: pointer;
+}
+
+.v-field, .v-field > * {
+    border-radius: .5rem;
 }
 
 .btn, .cta-btn {

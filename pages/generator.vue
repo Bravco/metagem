@@ -2,7 +2,7 @@
     <div>
         <div class="heading">
             <h1>Metadata generator</h1>
-            <p>Optimize your SEO for business development and company growth. Powered by AI.</p>
+            <p>Optimize your SEO for business development and company growth. Powevar(--color-background-secondary) by AI.</p>
         </div>
         <div class="wrapper">
             <div class="container">
@@ -24,7 +24,7 @@
                                 </a>
                             </div>
                             <v-file-input
-                                id="preview-img-input"
+                                class="preview-img-input"
                                 v-model="rawPreviewImg"
                                 @update:model-value="updatePreviewImg"
                                 @click:clear="previewImg = null"
@@ -32,6 +32,8 @@
                                 label="Upload an image"
                                 prepend-icon=""
                                 prepend-inner-icon="mdi-image"
+                                bg-color="var(--color-background-primary)"
+                                base-color="transparent"
                             />
                         </li>
                         <li class="content-item">
@@ -107,9 +109,9 @@
                             :class="['content-item', { active: selectedResponseIndex === index }]"
                         >
                             <h4 class="content-item-title">
-                                {{ response.createdDate.getHours() }}:{{ response.createdDate.getMinutes() < 10 ? '0' : null }}{{ response.createdDate.getMinutes() }}
-                                •
                                 {{ response.createdDate.getDate() }}/{{ response.createdDate.getMonth()+1 }}/{{ response.createdDate.getFullYear() }}
+                                •
+                                {{ response.createdDate.getHours() }}:{{ response.createdDate.getMinutes() < 10 ? '0' : null }}{{ response.createdDate.getMinutes() }}
                             </h4>
                             <div @click.prevent="selectedResponseIndex = index" class="response-container">
                                 <div>
@@ -296,7 +298,7 @@
     }
 
     function focusPreviewImgInput() {
-        document.getElementById('preview-img-input').focus();
+        document.querySelector(".preview-img-input").focus();
     }
 
     function setDescriptionLength(length) {
@@ -387,7 +389,7 @@
         display: flex;
         justify-content: space-between;
         border-radius: .5rem;
-        background-color: var(--color-background-secondary-light);
+        background-color: var(--color-background-secondary);
     }
 
     .container:first-of-type {
@@ -404,12 +406,12 @@
     .divider-line {
         width: min-content;
         margin: 0 auto;
-        border: 1px solid var(--color-text-alt-light);
+        border: 1px solid var(--color-background-primary);
     }
 
     .divider-icon {
         align-self: center;
-        color: var(--color-text-alt-dark);
+        color: var(--color-background-primary);
     }
 
     .content-wrapper {
@@ -533,7 +535,7 @@
 
     .keyword-item, .keyword-add {
         border-radius: .5em;
-        background-color: var(--color-background-secondary-light);
+        background-color: var(--color-background-secondary);
     }
 
     .keyword-item {
@@ -575,7 +577,7 @@
         display: grid;
         place-items: center;
         border-radius: 50%;
-        background-color: var(--color-background-secondary-light);
+        background-color: var(--color-background-secondary);
     }
 
     .code-btn {
@@ -583,7 +585,7 @@
     }
 
     .delete-btn {
-        color: var(--color-red);
+        color: #FF2681;
     }
 
     .dialog-container {
@@ -611,12 +613,12 @@
         padding: 1rem;
         overflow-x: auto;
         border-radius: .5rem .5rem 0 0;
-        background-color: var(--color-background-secondary-light);
+        background-color: var(--color-background-secondary);
     }
 
     .meta-code-highlight {
         font-family: unset;
-        color: var(--color-red);
+        color: var(--color-var(--color-background-secondary));
     }
 
     .dialog-footer {
