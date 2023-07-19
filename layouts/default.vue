@@ -13,24 +13,33 @@
                 </ul>
                 <button @click.prevent="navigateTo('/generator')" class="btn">
                     Sign up
-                    <Icon name="fa6-solid:arrow-right-long"/>
+                    <Icon name="fa6-solid:arrow-right"/>
                 </button>
             </nav>
         </header>
         <main>
             <slot/>
         </main>
+        <footer>
+            <Logo/>
+            <p>&copy; 2023 metagen | All rights reserved</p>
+        </footer>
     </div>
 </template>
 
 <style scoped>
-    nav {
+    nav, footer {
         width: 100vw;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 1rem 5%;
+    }
+
+    nav {
+        position: fixed;
         z-index: 100;
+        background-color: var(--color-background-primary);
     }
 
     .nav-list {
@@ -58,6 +67,11 @@
         bottom: 0;
         left: 0;
         background-color: var(--color-primary);
+    }
+
+    footer p {
+        font-weight: bold;
+        font-size: .75rem;
     }
 
     .router-link-exact-active {

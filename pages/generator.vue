@@ -2,7 +2,7 @@
     <div>
         <div class="heading">
             <h1>Metadata generator</h1>
-            <p>Optimize your SEO for business development and company growth. Powevar(--color-background-secondary) by AI.</p>
+            <p>Optimize your SEO for business development and company growth. Powered by AI.</p>
         </div>
         <div class="wrapper">
             <div class="container">

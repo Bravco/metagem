@@ -9,12 +9,39 @@
 
 :root {
     --color-primary: #2BE4CF;
+    --color-primary-alt: rgba(43, 228, 207, .5);
     --color-background-primary: white;
     --color-background-secondary: #ebf1fa;
     --color-background-secondary-dark: #e0e8f3;
     --color-text: black;
     --color-text-alt-light: #BFBFBF;
     --color-text-alt-dark: #808080;
+}
+
+body {
+    background-color: var(--color-background-primary);
+}
+
+section {
+    display: grid;
+    place-items: center;
+    padding: 5% 10%;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h1 span, h2 span, h3 span {
+    color: var(--color-primary);
 }
 
 li {
@@ -62,6 +89,7 @@ textarea {
 }
 
 .btn, .cta-btn {
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,4 +109,29 @@ textarea {
     font-size: 1.125rem;
     background: linear-gradient(135deg, #37FDFD 0%, #37ECC0 28.65%, #3792FD 67.19%, #37E5FD 100%);
     box-shadow: 0px 4px 20px 0px rgba(55, 84, 250, 0.50);
+}
+
+.small-icon-container, .icon-container, .big-icon-container {
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--color-primary);
+}
+
+.small-icon-container {
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-background-secondary);
+}
+
+.icon-container {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--color-background-secondary);
+}
+
+.big-icon-container {
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--color-background-primary);
 }
