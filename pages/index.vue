@@ -10,7 +10,14 @@
 					Unleash the power of <span>AI</span> for superior website reach and rankings.
 					Massively enhance your <span>SEO</span> for greater success.
 				</p>
-				<button class="cta-btn" aria-label="Try for free"><Icon name="fa6-solid:bolt"/>Try for free</button>
+				<div class="btns">
+					<button @click.prevent="navigateTo('#about')" class="outlined-btn" aria-label="Learn more">
+						Learn more<Icon name="fa6-solid:arrow-turn-down"/>
+					</button>
+					<button @click.prevent="navigateTo('generator')" class="cta-btn" aria-label="Try for free">
+						<Icon name="fa6-solid:bolt"/>Try for free
+					</button>
+				</div>
 			</div>
             <img class="preview-img" src="images/preview.webp" alt="preview-image">
         </section>
@@ -67,7 +74,7 @@
 						</span>
 						<h3>AI-Powered Metadata Generation</h3>
 						<p>We use advanced AI algorithms to analyze website content and generate tailor-made metadata, including meta tags, titles, and descriptions.</p>
-						<button class="cta-btn" aria-label="Try for free">
+						<button @click.prevent="navigateTo('generator')" class="cta-btn" aria-label="Try for free">
 							Get started - it's free<Icon name="fa6-solid:arrow-right"/>
 						</button>
 					</li>
@@ -192,6 +199,11 @@
 
 	.hero-paragraph span {
 		color: var(--color-primary-alt);
+	}
+
+	.btns {
+		display: flex;
+		gap: 2rem;
 	}
 
 	.preview-img {
@@ -358,7 +370,7 @@
 
 	@keyframes scrollTilt {
 		to {
-			transform: scale(.75) rotateX(90deg);
+			transform: scale(.75) rotateX(135deg);
 		}
 	}
 </style>

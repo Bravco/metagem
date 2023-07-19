@@ -18,7 +18,12 @@
     --color-text-alt-dark: #808080;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    padding-top: 5rem;
     background-color: var(--color-background-primary);
 }
 
@@ -88,7 +93,7 @@ textarea {
     border-radius: .5rem;
 }
 
-.btn, .cta-btn {
+.btn, .cta-btn, .outlined-btn {
     width: fit-content;
     display: flex;
     align-items: center;
@@ -109,6 +114,11 @@ textarea {
     font-size: 1.125rem;
     background: linear-gradient(135deg, #37FDFD 0%, #37ECC0 28.65%, #3792FD 67.19%, #37E5FD 100%);
     box-shadow: 0px 4px 20px 0px rgba(55, 84, 250, 0.50);
+}
+
+.outlined-btn {
+    border: 2px solid var(--color-text);
+    color: var(--color-text);
 }
 
 .small-icon-container, .icon-container, .big-icon-container {
