@@ -182,6 +182,15 @@
 		gap: 2rem;
 	}
 
+	.hero-heading::after {
+		content: "";
+		position: absolute;
+		width: 75%;
+		height: 50%;
+		z-index: -1;
+		background: radial-gradient(ellipse at center, rgba(43, 228, 207, .25) 0%, transparent 50%);
+	}
+
 	.hero-title, .hero-paragraph {
 		text-align: center;
 		font-weight: bold;
@@ -370,7 +379,7 @@
 
 	@keyframes scrollTilt {
 		to {
-			transform: scale(.75) rotateX(135deg);
+			transform: scale(.75) rotateX(90deg);
 		}
 	}
 </style>
