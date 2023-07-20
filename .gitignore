@@ -22,5 +22,4 @@ logs
 .env.*
 !.env.example
 
-service-account.json
 firebaseConfig.json

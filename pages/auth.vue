@@ -2,31 +2,21 @@
     <div>
         <section>
             <pre>{{ data }}</pre>
-            <button @click="updateUser">Update user</button>
         </section>
     </div>
 </template>
 
 <script setup>
-    import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+    import { doc, onSnapshot } from "firebase/firestore";
 
-    // Server side
-    const { data }  = useFetch("/api/user?id=444Dwj6g9aRW3yEJPac6");
+    const { firestore } = useFirebase();
 
-    // Client side
+    const data = ref(null);
+
     onMounted(() => {
-        const { firestore } = useFirebase();
-        const docRef = doc(firestore, "users", "444Dwj6g9aRW3yEJPac6");
-        onSnapshot(docRef, (snapshot) => {
+        const userDoc = doc(firestore, "users", "8oVLFA1sNFRTDGAE65WCKPClByu2");
+        onSnapshot(userDoc, snapshot => {
             data.value = snapshot.data();
         });
     });
-
-    async function updateUser() {
-        const { firestore } = useFirebase();
-        const docRef = doc(firestore, "users", "444Dwj6g9aRW3yEJPac6");
-        await updateDoc(docRef, {
-            name: `user-${Math.floor(Math.random() * 1000)}`,
-        });
-    }
 </script>
