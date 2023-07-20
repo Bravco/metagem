@@ -12,7 +12,7 @@
                     </li>
                 </ul>                
                 <div class="left">
-                    <button @click.prevent="navigateTo('/generator')" class="btn">
+                    <button @click.prevent="navigateTo('/auth')" class="btn">
                         Sign up
                         <Icon name="fa6-solid:arrow-right"/>
                     </button>
