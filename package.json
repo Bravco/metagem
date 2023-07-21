@@ -11,6 +11,7 @@
   "devDependencies": {
     "@invictus.codes/nuxt-vuetify": "^0.3.0",
     "@nuxt/devtools": "latest",
+    "@nuxt/image": "^1.0.0-rc.1",
     "@types/node": "^18.16.19",
     "nuxt": "^3.6.2",
     "nuxt-chatgpt": "^0.1.10",

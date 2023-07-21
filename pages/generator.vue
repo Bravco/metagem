@@ -15,7 +15,7 @@
                                 <h4>recommended 1200x630</h4>
                             </div>
                             <div class="input-preview-img-container">
-                                <img v-if="previewImg" :src="previewImg" alt="preview-image">
+                                <nuxt-img v-if="previewImg" :src="previewImg" alt="preview-image"/>
                                 <a v-else @click.prevent="focusPreviewImgInput" class="input-preview-img-placeholder">
                                     <div class="icon-container">
                                         <Icon name="fa6-solid:arrow-up" size="1.25rem"/>
@@ -224,7 +224,7 @@
                             <div class="google-container">
                                 <div class="google-heading">
                                     <div class="google-preview-icon">
-                                        <img v-if="previewImg" :src="previewImg" alt="preview-icon">
+                                        <nuxt-img v-if="previewImg" :src="previewImg" alt="preview-icon"/>
                                     </div>
                                     <div>
                                         <p class="preview-text">example.com</p>
@@ -241,7 +241,7 @@
                             <h4 class="content-item-title">Twitter</h4>
                             <div>
                                 <div class="preview-img-container">
-                                    <img v-if="previewImg" :src="previewImg" alt="preview-image">
+                                    <nuxt-img v-if="previewImg" :src="previewImg" alt="preview-image"/>
                                 </div>
                                 <div class="preview-footer">
                                     <p class="preview-title preview-text">{{ responses[selectedResponseIndex].title }}</p>
@@ -254,7 +254,7 @@
                             <h4 class="content-item-title">Open Graph</h4>
                             <div>
                                 <div class="preview-img-container">
-                                    <img v-if="previewImg" :src="previewImg" alt="preview-image">
+                                    <nuxt-img v-if="previewImg" :src="previewImg" alt="preview-image"/>
                                 </div>
                                 <div class="preview-footer">
                                     <p class="preview-url preview-text">example.io</p>
@@ -271,6 +271,10 @@
 </template>
 
 <script setup>
+    useHead({
+        title: "metagen | Generator",
+    });
+
     const { chat } = useChatgpt();
 
     const websiteTitle = ref("");

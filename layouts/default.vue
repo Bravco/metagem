@@ -13,7 +13,7 @@
                 </ul>                
                 <div class="left">
                     <button @click.prevent="navigateTo('/auth')" class="btn">
-                        Sign up
+                        Sign in
                         <Icon name="fa6-solid:arrow-right"/>
                     </button>
                     <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]" aria-label="Open mobile navigation">

@@ -19,7 +19,7 @@
 					</button>
 				</div>
 			</div>
-            <img class="preview-img" src="images/preview.webp" alt="preview-image">
+            <nuxt-img class="preview-img" src="images/preview.webp" alt="preview-image"/>
         </section>
 		<section id="benefits">
 			<span class="big-bg-text">Better search rankings</span>
@@ -87,7 +87,7 @@
 					</li>
 				</ul>
 			</div>
-			<img class="about-img" src="images/about.webp" alt="about-img">
+			<nuxt-img class="about-img" loading="lazy" src="images/about.webp" alt="about-img"/>
 		</section>
 		<section id="faq">
 			<h2>Frequently asked <span>questions</span></h2>
@@ -112,6 +112,10 @@
 </template>
 
 <script setup>
+	useHead({
+        title: "metagen | Home",
+    });
+
 	const faqs = [
 		{
 			id: 0,
