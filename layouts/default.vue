@@ -12,9 +12,13 @@
                     </li>
                 </ul>                
                 <div class="left">
-                    <button @click.prevent="navigateTo('/auth')" class="btn">
+                    <button v-if="auth.currentUser" @click.prevent="logout" class="btn">
+                        Sign out
+                        <Icon name="fa-solid:sign-out-alt"/>
+                    </button>
+                    <button v-else @click.prevent="navigateTo('/auth')" class="btn">
                         Sign in
-                        <Icon name="fa6-solid:arrow-right"/>
+                        <Icon name="fa-solid:sign-in-alt"/>
                     </button>
                     <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]" aria-label="Open mobile navigation">
                         <span class="bar"></span>
@@ -33,7 +37,11 @@
 </template>
 
 <script setup>
+    import { signOut } from 'firebase/auth';
+
     const { afterEach } = useRouter();
+    const { auth } = useFirebase();
+
     const isMobileMenuActive = ref(false);
 
     afterEach(() => {
@@ -42,6 +50,11 @@
 
     function toggleMobileMenu() {
         isMobileMenuActive.value = !isMobileMenuActive.value;
+    }
+
+    function logout() {
+        signOut(auth);
+        navigateTo("/");
     }
 </script>
 

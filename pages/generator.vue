@@ -275,6 +275,10 @@
         title: "metagen | Generator",
     });
 
+    definePageMeta({
+        middleware: ["auth"],
+    });
+
     const { chat } = useChatgpt();
 
     const websiteTitle = ref("");
@@ -589,7 +593,7 @@
     }
 
     .delete-btn {
-        color: #FF2681;
+        color: var(--color-red);
     }
 
     .dialog-container {
