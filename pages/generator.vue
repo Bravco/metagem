@@ -61,23 +61,16 @@
                         <li class="content-item">
                             <h4 class="content-item-title">Description length</h4>
                             <ul class="choice-list">
-                                <li>
-                                    <a 
-                                        @click.prevent="setDescriptionLength(10)" 
-                                        :class="['choice-item', { active: descriptionLength === 10 }]"
-                                    >Short</a>
-                                </li>
-                                <li>
-                                    <a 
-                                        @click.prevent="setDescriptionLength(15)" 
-                                        :class="['choice-item', { active: descriptionLength === 15 }]"
-                                    >Medium</a>
-                                </li>
-                                <li>
-                                    <a 
-                                        @click.prevent="setDescriptionLength(20)" 
-                                        :class="['choice-item', { active: descriptionLength === 20 }]"
-                                    >Long</a>
+                                <li v-for="(descriptionLength, index) in descriptionLengths" :key="index">
+                                    <button 
+                                        @click.prevent="selectDescriptionLength(index)" 
+                                        :class="[
+                                            'choice-item',
+                                            { active: selectedDescriptionLengthIndex === index },
+                                            { inactive: paid === false && selectedDescriptionLengthIndex !== index }
+                                        ]"
+                                        :aria-label="descriptionLength.title + 'description'"
+                                    >{{ descriptionLength.title }}</button>
                                 </li>
                             </ul>
                         </li>
@@ -89,7 +82,7 @@
                             <v-slider 
                                 v-model="keywordsCount"
                                 min="0"
-                                max="20"
+                                :max="keywordsMax"
                                 step="1"
                                 color="var(--color-primary)"
                                 track-color="var(--color-text-alt-light)"
@@ -97,6 +90,13 @@
                         </li>
                         <button @click.prevent="generateMetadata" class="btn"><Icon name="fa6-solid:bolt"/>Generate</button>
                     </ul>
+                    <div v-if="paid === false" class="upgrade-msg">
+                        <p>
+                            <Icon name="fa6-solid:triangle-exclamation"/>
+                            This is free trial version with restrictions.
+                        </p>
+                        <a class="upgrade-btn">Upgrade now for full access!</a>
+                    </div>
                 </div>
             </div>
             <div class="container">
@@ -160,9 +160,9 @@
                                         </button>
                                     </div>
                                     <div class="actions">
-                                        <v-dialog v-model="codeDialog" width="auto">
+                                        <v-dialog :disabled="!paid" v-model="codeDialog" width="auto">
                                             <template v-slot:activator="{ props }">
-                                                <button v-bind="props" class="code-btn">
+                                                <button v-bind="props" :class="['code-btn', {inactive: paid === false}]">
                                                     <Icon name="fa6-solid:code" size="1rem"/>
                                                 </button>
                                             </template>
@@ -274,6 +274,8 @@
 </template>
 
 <script setup>
+    import { doc, onSnapshot } from "firebase/firestore";
+
     useHead({
         title: "metagen | Generator",
     });
@@ -283,18 +285,34 @@
     });
 
     const { chat } = useChatgpt();
+    const { auth, firestore } = useFirebase();
 
+    const descriptionLengths = [
+        { title: "Short", length: 10 },
+        { title: "Medium", length: 20 },
+        { title: "Long", length: 30 },
+    ];
+
+    const paid = ref(false);
     const loading = ref(false);
     const websiteTitle = ref("");
     const websiteDescription = ref("");
-    const descriptionLength = ref(15);
-    const keywordsCount = ref(10);
+    const selectedDescriptionLengthIndex = ref(0);
+    const keywordsCount = ref(0);
     const rawPreviewImg = ref(null);
     const previewImg = ref(null);
     const responses = ref([]);
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
     const isCopied = ref(false);
+
+    const keywordsMax = computed(() => {
+        if (paid.value === true) {
+            return 20;
+        } else {
+            return 3;
+        }
+    });
 
     function updatePreviewImg() {
         if (rawPreviewImg.value && rawPreviewImg.value.length !== 0) {
@@ -313,8 +331,10 @@
         document.querySelector(".preview-img-input").focus();
     }
 
-    function setDescriptionLength(length) {
-        descriptionLength.value = length;
+    function selectDescriptionLength(index) {
+        if (paid.value === true) {
+            selectedDescriptionLengthIndex.value = index;
+        }
     }
 
     function addKeyword() {
@@ -342,7 +362,8 @@
     }
 
     function deleteResponse(response) {
-        responses.value.pop(response);
+        selectedResponseIndex.value = 0;
+        responses.value = responses.value.filter(e => e !== response)
     }
 
     function copyMeta() {
@@ -369,7 +390,7 @@
         generatedTitle = generatedTitle.replaceAll('"', "");
         newResponse.title = websiteTitle.value.concat(" - ", generatedTitle);
 
-        const descriptionMsg = `Generate metadata description with length of ${descriptionLength.value} words for website: ${websiteDescription.value}`;
+        const descriptionMsg = `Generate metadata description with length of ${descriptionLengths[selectedDescriptionLengthIndex.value].length} words for website: ${websiteDescription.value}`;
         let generatedDescription = await chat(descriptionMsg);
         generatedDescription = generatedDescription.replaceAll('"', "");
         newResponse.description = generatedDescription;
@@ -388,9 +409,21 @@
 
         responses.value.push(newResponse);
     }
+
+    onMounted(async () => {
+        const userRef = doc(firestore, "users", auth.currentUser.uid);
+        onSnapshot(userRef, (snapshot) => {
+            paid.value = snapshot.data().paid;
+        });
+    });
 </script>
 
 <style scoped>
+    .inactive {
+        opacity: 50%;
+        pointer-events: none;
+    }
+
     .heading {
         text-align: center;
         margin-bottom: 1rem;
@@ -733,6 +766,16 @@
 
     .loading-icon {
         color: var(--color-primary);
+    }
+
+    .upgrade-msg {
+        text-align: center;
+        color: var(--color-red);
+    }
+
+    .upgrade-btn {
+        color: var(--color-primary);
+        text-decoration: underline;
     }
 
     @media only screen and (max-width: 1280px) {

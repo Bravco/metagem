@@ -155,12 +155,12 @@
                 signOut(auth);
             }
             createUserWithEmailAndPassword(auth, state.email, state.password).then(async (result) => {
-                const docRef = doc(firestore, "users", result.user.uid);
+                const userRef = doc(firestore, "users", result.user.uid);
                 
-                await updateDoc(docRef, {
+                await updateDoc(userRef, {
                     uid: result.user.uid,
                     email: result.user.email,
-                    isPaying: false,
+                    paid: false,
                 });
 
                 sendEmailVerification(auth.currentUser);
@@ -213,12 +213,12 @@
         }
 
         signInWithPopup(auth, googleProvider).then(async (result) => {
-            const docRef = doc(firestore, "users", result.user.uid);
+            const userRef = doc(firestore, "users", result.user.uid);
                 
-            await updateDoc(docRef, {
+            await updateDoc(userRef, {
                 uid: result.user.uid,
                 email: result.user.email,
-                isPaying: false,
+                paid: false,
             });
 
             navigateTo("/generator");
