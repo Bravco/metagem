@@ -11,14 +11,34 @@
                         <NuxtLink class="nav-link" to="/generator">Generator</NuxtLink>
                     </li>
                 </ul>                
-                <div class="left">
-                    <button v-if="isLoggedIn" @click.prevent="logout" class="btn">
-                        Sign out
-                        <Icon name="fa-solid:sign-out-alt"/>
-                    </button>
+                <div class="right">
+                    <div v-if="isLoggedIn && auth.currentUser" class="dropdown">
+                        <button @click="toggleDropdown" class="dropdown-toggle-btn" aria-label="Toggle dropdown">
+                            <nuxt-img v-if="auth.currentUser.photoURL" class="profile-picture" :src="auth.currentUser.photoURL" alt="profile-picture"/>
+                            <div v-else class="profile-picture-placeholder">
+                                <Icon name="fa6-solid:user" size="1.25rem"/>
+                            </div>
+                        </button>
+                        <ul :class="['dropdown-content', {'active' : isDropdownActive}]">
+                            <li class="dropdown-item">
+                                <div>
+                                    <p class="dropdown-item-label">Logged as</p>
+                                    <p>{{ auth.currentUser.email }}</p>
+                                </div>
+                                <v-chip color="var(--color-primary)">100</v-chip>
+                            </li>
+                            <hr>
+                            <li class="dropdown-item">
+                                <button @click="logout" class="dropdown-btn" aria-label="Sign out">
+                                    Sign out
+                                    <Icon name="fa6-solid:arrow-right-from-bracket"/>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                     <button v-else @click.prevent="navigateTo('/auth')" class="btn">
                         Sign in
-                        <Icon name="fa-solid:sign-in-alt"/>
+                        <Icon name="fa6-solid:arrow-right-to-bracket"/>
                     </button>
                     <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]" aria-label="Open mobile navigation">
                         <span class="bar"></span>
@@ -44,6 +64,7 @@
 
     const isLoggedIn = ref(false);
     const isMobileMenuActive = ref(false);
+    const isDropdownActive = ref(false);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -61,10 +82,35 @@
         isMobileMenuActive.value = !isMobileMenuActive.value;
     }
 
+    function toggleDropdown() {
+        isDropdownActive.value = !isDropdownActive.value;
+    }
+
     function logout() {
         signOut(auth);
         navigateTo("/");
     }
+
+    function handleDropdown(event) {
+		if (process.client) {
+            const dropdownContent = document.querySelector(".dropdown-content");
+			if (!event.target.closest(".dropdown") && dropdownContent && isDropdownActive.value) {
+                toggleDropdown();
+            }
+		}
+	}
+
+	onMounted(() => {
+		if (process.client) {
+			window.addEventListener("click", handleDropdown);
+		}
+	});
+
+	onUnmounted(() => {
+		if (process.client) {
+			window.removeEventListener("click", handleDropdown);
+		}
+	});
 </script>
 
 <style scoped>
@@ -110,9 +156,79 @@
         background-color: var(--color-primary);
     }
 
-    nav .left {
+    nav .right {
         display: flex;
+        align-items: center;
         gap: 1rem;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-toggle-btn {
+        display: grid;
+        place-items: center;
+    }
+
+    .profile-picture, .profile-picture-placeholder {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    } 
+
+    .profile-picture {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .profile-picture-placeholder {
+        display: grid;
+        place-items: center;
+        color: var(--color-text-alt-dark);
+        background-color: var(--color-background-secondary);
+    }
+
+    .dropdown-content {
+        display: none;
+        gap: 1rem;
+        position: absolute;
+        right: 0;
+        margin-top: .5rem;
+        padding: 1rem 0;
+        background-color: var(--color-background-primary);
+        border-radius: .5rem;
+        box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .1);
+        min-width: 16rem;
+    }
+    
+    .dropdown-content.active {
+        display: grid;
+    }
+
+    .dropdown-item, .dropdown-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dropdown-item {
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .dropdown-item:first-child {
+        font-weight: bold;
+    }
+
+    .dropdown-btn {
+        width: 100%;
+    }
+
+    .dropdown-item-label {
+        color: var(--color-text-alt-dark);
+        font-size: .8rem;
     }
 
     .hamburger {
@@ -128,7 +244,7 @@
         color: var(--color-primary);
     }
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 1024px) {
         .nav-list {
             width: 100%;
             height: 100vh;
@@ -163,6 +279,8 @@
         .nav-item {
             width: fit-content;
             font-size: 3rem;
+            font-weight: bold;
+            text-shadow: white 1px 0 20px;
         }
         
         .nav-link:hover::after {
