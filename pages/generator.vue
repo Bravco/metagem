@@ -209,6 +209,9 @@
                                 </div>
                             </div>
                         </li>
+                        <li v-if="loading">
+                            <Icon class="loading-icon" name="eos-icons:loading" size="2rem"/>
+                        </li>
                     </ul>
                 </div>
                 <div class="divider">
@@ -281,6 +284,7 @@
 
     const { chat } = useChatgpt();
 
+    const loading = ref(false);
     const websiteTitle = ref("");
     const websiteDescription = ref("");
     const descriptionLength = ref(15);
@@ -353,27 +357,34 @@
     async function generateMetadata() {
         if (websiteTitle.value === "" || websiteDescription.value === "") return;
 
+        loading.value = true;
+
         let newResponse = {};
 
         newResponse.createdDate = new Date;
         newResponse.author = websiteTitle.value;
 
         const titleMsg = `Generate short metadata title for website: ${websiteDescription.value}`;
-        const generatedTitle = await chat(titleMsg)
-        const formattedTitle = generatedTitle.replaceAll('"', "");
-        newResponse.title = websiteTitle.value.concat(" - ", formattedTitle);
+        let generatedTitle = await chat(titleMsg)
+        generatedTitle = generatedTitle.replaceAll('"', "");
+        newResponse.title = websiteTitle.value.concat(" - ", generatedTitle);
 
         const descriptionMsg = `Generate metadata description with length of ${descriptionLength.value} words for website: ${websiteDescription.value}`;
-        const generatedDescription = await chat(descriptionMsg);
-        generatedDescription.replaceAll('"', "");
+        let generatedDescription = await chat(descriptionMsg);
+        generatedDescription = generatedDescription.replaceAll('"', "");
         newResponse.description = generatedDescription;
 
         if (keywordsCount.value > 0) {
             const keywordMsg = `Generate ${keywordsCount.value} metadata keywords in a single line without list style for website: ${websiteDescription.value}`;
-            const rawKeywords = await chat(keywordMsg);
-            const generatedKeywords = rawKeywords.split(", ");
+            let generatedKeywords = await chat(keywordMsg);
+            if (generatedKeywords.endsWith(".")) {
+                generatedKeywords = generatedKeywords.replace(/\.$/, "");
+            }
+            generatedKeywords = generatedKeywords.split(", ");
             newResponse.keywords = generatedKeywords;
         }
+
+        loading.value = false;
 
         responses.value.push(newResponse);
     }
@@ -618,8 +629,9 @@
     }
 
     .dialog-container pre {
+        max-height: 50vh;
         padding: 1rem;
-        overflow-x: auto;
+        overflow: auto;
         border-radius: .5rem .5rem 0 0;
         background-color: var(--color-background-secondary);
     }
@@ -717,6 +729,10 @@
 
     .google-title:hover {
         text-decoration: underline;
+    }
+
+    .loading-icon {
+        color: var(--color-primary);
     }
 
     @media only screen and (max-width: 1280px) {
