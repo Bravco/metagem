@@ -78,7 +78,7 @@
                         </div>
                     </form>
                     <div class="divider">or</div>
-                    <button class="google-btn outlined-btn" aria-label="Log in with Google">
+                    <button @click="signInWithGoogle" class="google-btn outlined-btn" aria-label="Log in with Google">
                         <Icon name="logos:google-icon"/>
                         Log in with Google
                     </button>
@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-    import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification } from "firebase/auth";
+    import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
     import { useVuelidate } from "@vuelidate/core";
     import { required, minLength, email, sameAs } from "@vuelidate/validators";
 
@@ -102,6 +102,7 @@
     });
 
     const { auth } = useFirebase();
+    const googleProvider = new GoogleAuthProvider();
 
     const isSigningUp = ref(false);
     const forgotPassword = ref(false);
@@ -194,6 +195,16 @@
                     errorMsg.value = "Email or password was incorrect";
                     break;
             }
+        });
+    }
+
+    function signInWithGoogle() {
+        if (auth.currentUser) {
+            signOut(auth);
+        }
+
+        signInWithPopup(auth, googleProvider).then(() => {
+            navigateTo("/generator");
         });
     }
 
