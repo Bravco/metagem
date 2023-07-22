@@ -12,7 +12,7 @@
                     </li>
                 </ul>                
                 <div class="left">
-                    <button v-if="auth.currentUser" @click.prevent="logout" class="btn">
+                    <button v-if="isLoggedIn" @click.prevent="logout" class="btn">
                         Sign out
                         <Icon name="fa-solid:sign-out-alt"/>
                     </button>
@@ -37,12 +37,21 @@
 </template>
 
 <script setup>
-    import { signOut } from 'firebase/auth';
+    import { signOut, onAuthStateChanged } from 'firebase/auth';
 
     const { afterEach } = useRouter();
     const { auth } = useFirebase();
 
+    const isLoggedIn = ref(false);
     const isMobileMenuActive = ref(false);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            isLoggedIn.value = true;
+        } else {
+            isLoggedIn.value = false;
+        }
+    });
 
     afterEach(() => {
         isMobileMenuActive.value = false;
