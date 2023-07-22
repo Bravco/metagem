@@ -90,6 +90,7 @@
 
 <script setup>
     import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+    import { doc, updateDoc } from "firebase/firestore";
     import { useVuelidate } from "@vuelidate/core";
     import { required, minLength, email, sameAs } from "@vuelidate/validators";
 
@@ -101,7 +102,7 @@
         middleware: ["auth"],
     });
 
-    const { auth } = useFirebase();
+    const { auth, firestore } = useFirebase();
     const googleProvider = new GoogleAuthProvider();
 
     const isSigningUp = ref(false);
@@ -153,7 +154,15 @@
             if (auth.currentUser) {
                 signOut(auth);
             }
-            createUserWithEmailAndPassword(auth, state.email, state.password).then(() => {
+            createUserWithEmailAndPassword(auth, state.email, state.password).then(async (result) => {
+                const docRef = doc(firestore, "users", result.user.uid);
+                
+                await updateDoc(docRef, {
+                    uid: result.user.uid,
+                    email: result.user.email,
+                    isPaying: false,
+                });
+
                 sendEmailVerification(auth.currentUser);
                 navigateTo("/generator");
             }).catch((error) => {
@@ -203,7 +212,15 @@
             signOut(auth);
         }
 
-        signInWithPopup(auth, googleProvider).then(() => {
+        signInWithPopup(auth, googleProvider).then(async (result) => {
+            const docRef = doc(firestore, "users", result.user.uid);
+                
+            await updateDoc(docRef, {
+                uid: result.user.uid,
+                email: result.user.email,
+                isPaying: false,
+            });
+
             navigateTo("/generator");
         });
     }

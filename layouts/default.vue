@@ -95,7 +95,7 @@
 		if (process.client) {
             const dropdownContent = document.querySelector(".dropdown-content");
 			if (!event.target.closest(".dropdown") && dropdownContent && isDropdownActive.value) {
-                toggleDropdown();
+                isDropdownActive.value = false;
             }
 		}
 	}
