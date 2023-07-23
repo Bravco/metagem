@@ -13,7 +13,7 @@
                 </ul>                
                 <div class="right">
                     <div v-if="isLoggedIn && auth.currentUser" class="dropdown">
-                        <button @click="toggleDropdown" class="dropdown-toggle-btn" aria-label="Toggle dropdown">
+                        <button @click.prevent="toggleDropdown" class="dropdown-toggle-btn" aria-label="Toggle dropdown">
                             <nuxt-img v-if="auth.currentUser.photoURL" class="profile-picture" :src="auth.currentUser.photoURL" alt="profile-picture"/>
                             <div v-else class="profile-picture-placeholder">
                                 <Icon name="fa6-solid:user" size="1.25rem"/>
@@ -25,7 +25,7 @@
                                     <p class="dropdown-item-label">Logged as</p>
                                     <p>{{ auth.currentUser.email }}</p>
                                 </div>
-                                <v-chip color="var(--color-primary)">100</v-chip>
+                                <v-chip color="var(--color-primary)">{{ paid ? 'Paid' : 'Free' }}</v-chip>
                             </li>
                             <hr>
                             <li class="dropdown-item">
@@ -58,17 +58,23 @@
 
 <script setup>
     import { signOut, onAuthStateChanged } from 'firebase/auth';
+    import { doc, onSnapshot } from 'firebase/firestore';
 
     const { afterEach } = useRouter();
-    const { auth } = useFirebase();
+    const { auth, firestore } = useFirebase();
 
     const isLoggedIn = ref(false);
+    const paid = ref(false);
     const isMobileMenuActive = ref(false);
     const isDropdownActive = ref(false);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
+            const userRef = doc(firestore, "users", auth.currentUser.uid);
             isLoggedIn.value = true;
+            onSnapshot(userRef, (snapshot) => {
+                paid.value = snapshot.data().paid;
+            });
         } else {
             isLoggedIn.value = false;
         }

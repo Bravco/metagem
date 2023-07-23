@@ -117,16 +117,16 @@
                                 <div>
                                     <p 
                                         class="response-author"
-                                        contenteditable
+                                        :contenteditable="paid"
                                         @input="(e) => { response.author = e.target.innerText }"
                                     >{{ response.author }}</p>
                                     <h3 
-                                        contenteditable 
+                                        :contenteditable="paid" 
                                         @input="(e) => { response.title = e.target.innerText }"
                                     >{{ response.title }}</h3>
                                 </div>
                                 <p
-                                    contenteditable
+                                    :contenteditable="paid"
                                     @input="(e) => { response.description = e.target.innerText }"
                                 >{{ response.description }}</p>
                                 <ul v-if="selectedResponseIndex === index" class="keyword-list">
@@ -353,8 +353,7 @@
     }
 
     function setResponseFeedback(value) {
-        if (responses.value[selectedResponseIndex.value].feedback && 
-            (responses.value[selectedResponseIndex.value].feedback === value)) {
+        if (responses.value[selectedResponseIndex.value].feedback === value) {
             delete responses.value[selectedResponseIndex.value].feedback;
         } else {
             responses.value[selectedResponseIndex.value].feedback = value;

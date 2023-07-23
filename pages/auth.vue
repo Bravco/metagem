@@ -90,7 +90,7 @@
 
 <script setup>
     import { signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-    import { doc, updateDoc } from "firebase/firestore";
+    import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
     import { useVuelidate } from "@vuelidate/core";
     import { required, minLength, email, sameAs } from "@vuelidate/validators";
 
@@ -146,6 +146,24 @@
         forgotPassword.value = !forgotPassword.value;
     }
 
+    function assignUserData(user) {
+        const userRef = doc(firestore, "users", user.uid);
+        const defaultData = {
+            uid: user.uid,
+            email: user.email,
+            paid: false,
+        };
+
+        getDoc(userRef).then((doc) => {
+            if (doc.exists()) {
+                const combinedData = Object.assign({}, defaultData, doc.data());
+                updateDoc(doc.ref, combinedData);
+            } else {
+                setDoc(doc.ref, defaultData);
+            }
+        });
+    }
+
     async function signUp() {
         const valid = await v$.value.$validate();
         submitted.value = true;
@@ -154,15 +172,8 @@
             if (auth.currentUser) {
                 signOut(auth);
             }
-            createUserWithEmailAndPassword(auth, state.email, state.password).then(async (result) => {
-                const userRef = doc(firestore, "users", result.user.uid);
-                
-                await updateDoc(userRef, {
-                    uid: result.user.uid,
-                    email: result.user.email,
-                    paid: false,
-                });
-
+            createUserWithEmailAndPassword(auth, state.email, state.password).then((result) => {
+                assignUserData(result.user);
                 sendEmailVerification(auth.currentUser);
                 navigateTo("/generator");
             }).catch((error) => {
@@ -184,7 +195,8 @@
             signOut(auth);
         }
 
-        signInWithEmailAndPassword(auth, state.email, state.password).then(() => {
+        signInWithEmailAndPassword(auth, state.email, state.password).then((result) => {
+            assignUserData(result.user);
             navigateTo("/generator");
         }).catch((error) => {
             switch (error.code) {
@@ -212,15 +224,8 @@
             signOut(auth);
         }
 
-        signInWithPopup(auth, googleProvider).then(async (result) => {
-            const userRef = doc(firestore, "users", result.user.uid);
-                
-            await updateDoc(userRef, {
-                uid: result.user.uid,
-                email: result.user.email,
-                paid: false,
-            });
-
+        signInWithPopup(auth, googleProvider).then((result) => {
+            assignUserData(result.user);
             navigateTo("/generator");
         });
     }
