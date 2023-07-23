@@ -8,10 +8,16 @@
                         <NuxtLink class="nav-link" to="/">Home</NuxtLink>
                     </li>
                     <li class="nav-item">
+                        <NuxtLink class="nav-link" to="/pricing">Pricing</NuxtLink>
+                    </li>
+                    <li class="nav-item">
                         <NuxtLink class="nav-link" to="/generator">Generator</NuxtLink>
                     </li>
                 </ul>                
                 <div class="right">
+                    <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]" aria-label="Open mobile navigation">
+                        <span class="bar"></span>
+                    </button>
                     <div v-if="isLoggedIn && auth.currentUser" class="dropdown">
                         <button @click.prevent="toggleDropdown" class="dropdown-toggle-btn" aria-label="Toggle dropdown">
                             <nuxt-img v-if="auth.currentUser.photoURL" class="profile-picture" :src="auth.currentUser.photoURL" alt="profile-picture"/>
@@ -39,9 +45,6 @@
                     <button v-else @click.prevent="navigateTo('/auth')" class="btn">
                         Sign in
                         <Icon name="fa6-solid:arrow-right-to-bracket"/>
-                    </button>
-                    <button @click.prevent="toggleMobileMenu" :class="['hamburger', {'active' : isMobileMenuActive}]" aria-label="Open mobile navigation">
-                        <span class="bar"></span>
                     </button>
                 </div>
             </nav>
@@ -122,13 +125,13 @@
 <style scoped>
     nav, footer {
         width: 100vw;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         padding: 1rem 10%;
     }
 
     nav {
+        display: grid;
+        grid-template-columns: 1fr 10fr 1fr;
+        place-items: center;
         position: fixed;
         top: 0;
         z-index: 100;
@@ -240,6 +243,12 @@
     .hamburger {
         display: none;
     }
+    
+    footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
     footer p {
         font-weight: bold;
@@ -251,6 +260,12 @@
     }
 
     @media only screen and (max-width: 1024px) {
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .nav-list {
             width: 100%;
             height: 100vh;

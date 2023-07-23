@@ -51,6 +51,28 @@ h1 span, h2 span, h3 span {
     color: var(--color-primary);
 }
 
+.page-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.page-title, .page-subtitle {
+    text-align: center;
+    font-weight: bold;
+}
+
+.page-subtitle {
+    font-size: 1.5rem;
+    color: var(--color-text-alt-dark);
+}
+
+.page-subtitle span {
+    color: var(--color-primary-alt);
+}
+
 li {
     list-style: none;
 }
@@ -146,4 +168,10 @@ textarea {
     width: 4rem;
     height: 4rem;
     background-color: var(--color-background-primary);
+}
+
+@media only screen and (max-width: 768px) {
+    .page-title, .page-subtitle {
+        width: 100%;
+    }
 }

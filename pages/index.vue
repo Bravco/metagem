@@ -1,12 +1,12 @@
 <template>
     <div>
         <section ref="perspectiveWrapper" id="hero">
-			<div class="hero-heading">
-				<h1 class="hero-title">
+			<div class="page-heading">
+				<h1 class="page-title">
 					<span>Maximize</span> your <span>online reach</span>
 					with precisely generated metadata
 				</h1>
-				<p class="hero-paragraph">
+				<p class="page-subtitle">
 					Unleash the power of <span>AI</span> for superior website reach and rankings.
 					Massively enhance your <span>SEO</span> for greater success.
 				</p>
@@ -75,7 +75,7 @@
 						<h3>AI-Powered Metadata Generation</h3>
 						<p>We use advanced AI algorithms to analyze website content and generate tailor-made metadata, including meta tags, titles, and descriptions.</p>
 						<button @click.prevent="navigateTo('generator')" class="cta-btn" aria-label="Try for free">
-							Get started - it's free<Icon name="fa6-solid:arrow-right"/>
+							Get started - it's free<Icon name="fa6-solid:arrow-right-long"/>
 						</button>
 					</li>
 					<li class="about-benefit-item">
@@ -178,16 +178,11 @@
 		perspective: 100vw;
 	}
 
-	.hero-heading {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+	.page-heading {
 		gap: 2rem;
-		position: relative;
 	}
 
-	.hero-heading::after {
+	.page-heading::after {
 		content: "";
 		position: absolute;
 		width: 100%;
@@ -196,23 +191,12 @@
 		background: radial-gradient(ellipse at center, rgba(43, 228, 207, .25) 0%, transparent 50%);
 	}
 
-	.hero-title, .hero-paragraph {
-		text-align: center;
-		font-weight: bold;
-	}
-
-	.hero-title {
+	.page-title {
 		width: 70%;
 	}
 
-	.hero-paragraph {
+	.page-subtitle {
 		width: 50%;
-		font-size: 1.5rem;
-		color: var(--color-text-alt-dark);
-	}
-
-	.hero-paragraph span {
-		color: var(--color-primary-alt);
 	}
 
 	.btns {
@@ -353,12 +337,6 @@
 	.faq-question {
 		font-weight: bold;
 	}
-
-	@media only screen and (max-width: 768px) {
-        .hero-title, .hero-paragraph {
-			width: 100%;
-		}
-    }
 
 	@media only screen and (max-width: 1024px) {
 		#about {

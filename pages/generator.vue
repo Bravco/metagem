@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="heading">
-            <h1>Metadata generator</h1>
-            <p>Optimize your SEO for business development and company growth. Powered by AI.</p>
+        <div class="page-heading">
+            <h1 class="page-title"><span>Metadata</span> generator</h1>
+            <p class="page-subtitle">
+                Optimize your <span>SEO</span> for business development and company growth. Powered by <span>AI</span>.
+            </p>
         </div>
         <div class="wrapper">
             <div class="container">
@@ -421,11 +423,6 @@
     .inactive {
         opacity: 50%;
         pointer-events: none;
-    }
-
-    .heading {
-        text-align: center;
-        margin-bottom: 1rem;
     }
 
     .wrapper {
