@@ -184,6 +184,7 @@
 
     .info-item:first-child, .plan-item {
         border-radius: .5rem;
+        background-color: var(--color-background-secondary);
     }
 
     .info-list {
@@ -197,8 +198,6 @@
         justify-content: center;
         gap: 1rem;
         padding: 2rem;
-        color: white;
-        background-color: #2700b5;
     }
 
     .info-heading {
@@ -260,7 +259,6 @@
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
-        background-color: var(--color-background-secondary);
     }
 
     .plan-item:last-child {
