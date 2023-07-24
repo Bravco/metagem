@@ -26,12 +26,13 @@
                     <li class="info-item">
                         <h4>Supported payment methods</h4>
                         <div class="payment-methods">
-                            <Icon name="logos:visa" size="2rem"/>
-                            <Icon name="logos:mastercard" size="2rem"/>
-                            <Icon name="logos:amex" size="2rem"/>
-                            <Icon name="logos:paypal" size="2rem"/>
-                            <Icon name="logos:apple-pay" size="2rem"/>
-                            <Icon name="logos:google-pay" size="2rem"/>
+                            <Icon name="logos:visa"/>
+                            <Icon name="logos:mastercard"/>
+                            <Icon name="logos:amex"/>
+                            <Icon name="logos:dinersclub"/>
+                            <Icon name="logos:paypal"/>
+                            <Icon name="logos:apple-pay"/>
+                            <Icon name="logos:google-pay"/>
                         </div>
                     </li>
                 </ul>
@@ -151,10 +152,6 @@
 
 <style scoped>
     section {
-        --color-pro: rgb(123, 87, 255);
-        --color-pro-50: rgba(123, 87, 255, .5);
-        --color-pro-25: rgba(123, 87, 255, .25);
-
         gap: 4rem;
     }
 
@@ -239,6 +236,7 @@
         display: flex;
         gap: 1.5rem;
         margin-top: .5rem;
+        font-size: 2.5rem;
     }
 
     .plan-list {
@@ -317,8 +315,8 @@
     }
 
     .plan-item:last-child button {
-        background: linear-gradient(135deg, #D357FF 5.73%, #7B57FF 35.42%, #4B1EFF 70.31%, #2400FF 100%);
-        box-shadow: 0px 4px 20px 0px #7B57FF;
+        background: linear-gradient(135deg, #D357FF 5.73%, var(--color-pro) 35.42%, #4B1EFF 70.31%, #2400FF 100%);
+        box-shadow: 0px 4px 20px 0px var(--color-pro);
     }
 
     .features {

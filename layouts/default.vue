@@ -31,7 +31,7 @@
                                     <p class="dropdown-item-label">Logged as</p>
                                     <p>{{ auth.currentUser.email }}</p>
                                 </div>
-                                <v-chip color="var(--color-primary)">{{ paid ? 'Paid' : 'Free' }}</v-chip>
+                                <v-chip :color="paid ? 'var(--color-pro)' : 'var(--color-primary)'">{{ paid ? 'Pro' : 'Free' }}</v-chip>
                             </li>
                             <hr>
                             <li class="dropdown-item">
@@ -103,7 +103,7 @@
     function handleDropdown(event) {
 		if (process.client) {
             const dropdownContent = document.querySelector(".dropdown-content");
-			if (!event.target.closest(".dropdown") && dropdownContent && isDropdownActive.value) {
+            if (dropdownContent && !event.target.closest(".dropdown")) {
                 isDropdownActive.value = false;
             }
 		}

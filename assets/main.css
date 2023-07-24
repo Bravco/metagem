@@ -17,6 +17,10 @@
     --color-text-alt-light: #BFBFBF;
     --color-text-alt-dark: #808080;
     --color-red: #FF2681;
+
+    --color-pro: rgb(123, 87, 255);
+    --color-pro-50: rgba(123, 87, 255, .5);
+    --color-pro-25: rgba(123, 87, 255, .25);
 }
 
 html {
@@ -118,7 +122,7 @@ textarea {
 }
 
 .btn, .cta-btn, .outlined-btn {
-    width: fit-content;
+    width: max-content;
     display: flex;
     align-items: center;
     justify-content: center;
