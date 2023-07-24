@@ -4,8 +4,8 @@
             <div class="page-heading">
                 <h1 class="page-title"><span>Transparent</span> pricing: choose what works for <span>you</span></h1>
                 <p class="page-subtitle">
-					Simplify your payments with our convenient <span>pay for what you use</span> model.
-                    Giving you control over <span>expenses</span> and <span>usage</span>.
+					Simplify your payments with our convenient <span>subscription</span> plans
+                    which provide you <span>control</span> over expenses and usage.
 				</p>
             </div>
             <div class="main-grid">
@@ -24,39 +24,35 @@
                         <p v-if="submittedWaitlist" class="success">Your email address was successfully added to the waitlist.</p>
                     </li>
                     <li class="info-item">
-                        <p>
-                            The €5 pending charge you see after updating your payment method is a temporary authorization hold on your credit card.
-                            This is part of the process for setting up the pay-as-you-go plan.
-                            <b>The pending charge will be reversed within 7 days.</b>
-                        </p>
-                        <b>If you purchase the professional plan, you will be billed every month based on your generator usage.</b>
-                        <div>
-                            <h4>Supported card brands</h4>
-                            <div class="payment-methods">
-                                <Icon name="logos:visa" size="2rem"/>
-                                <Icon name="logos:mastercard" size="2rem"/>
-                                <Icon name="logos:amex" size="2rem"/>
-                                <Icon name="logos:paypal" size="2rem"/>
-                                <Icon name="logos:apple-pay" size="2rem"/>
-                                <Icon name="logos:google-pay" size="2rem"/>
-                            </div>
+                        <h4>Supported payment methods</h4>
+                        <div class="payment-methods">
+                            <Icon name="logos:visa" size="2rem"/>
+                            <Icon name="logos:mastercard" size="2rem"/>
+                            <Icon name="logos:amex" size="2rem"/>
+                            <Icon name="logos:paypal" size="2rem"/>
+                            <Icon name="logos:apple-pay" size="2rem"/>
+                            <Icon name="logos:google-pay" size="2rem"/>
                         </div>
                     </li>
                 </ul>
                 <ul class="plan-list">
                     <li v-for="plan in plans" :key="plan" class="plan-item">
                         <div>
-                            <div class="plan-title">
-                                <Icon :name="plan.iconName" size="2rem"/>
-                                <h3>{{ plan.title }}</h3>
+                            <div class="plan-heading">
+                                <div class="plan-title">
+                                    <Icon :name="plan.iconName" size="2rem"/>
+                                    <h3>{{ plan.title }}</h3>
+                                </div>
+                                <v-chip v-if="plan.monthPrice !== 0" color="var(--color-pro)" style="font-weight: bold;">-50%</v-chip>
                             </div>
                             <p class="plan-description">{{ plan.description }}</p>
                         </div>
                         <p class="plan-price">
-                            {{ plan.price === 0 ? "Free" : "&euro;" + plan.price.toFixed(2) }}
-                            <span v-if="plan.price !== 0">/ generation</span>
+                            <span v-if="plan.monthPrice !== 0" class="old-plan-price">€{{ Math.round(plan.monthPrice)*2-.01 }}</span>
+                            {{ plan.monthPrice === 0 ? "Free" : "&euro;" + plan.monthPrice.toFixed(2) }}
+                            <span v-if="plan.monthPrice !== 0" class="plan-pay-interval">/ month</span>
                         </p>
-                        <button v-if="plan.price === 0" @click.prevent="navigateTo('/generator')" class="outlined-btn" aria-label="Try for free">
+                        <button v-if="plan.monthPrice === 0" @click.prevent="navigateTo('/generator')" class="outlined-btn" aria-label="Try for free">
                             Try for free
                             <Icon name="fa6-solid:arrow-right-long" size="1em"/>
                         </button>
@@ -92,21 +88,22 @@
             iconName: "fa6-solid:feather",
             title: "Trial",
             description: "Get started for free and upgrade when you're ready for more.",
-            price: 0,
+            monthPrice: 0,
             features: [
                 { title: "Preview Image", value: true },
                 { title: "Title Generation", value: true },
                 { title: "Max Keywords Count", value: 3 },
-                { title: "Daily Generation Quota", value: 2 },
+                { title: "Monthly Generation Quota", value: 5 },
             ],
         },
         {
             iconName: "fa6-solid:crown",
             title: "Professional",
             description: "Gain exclusive access to enhanced tools and unparalleled support.",
-            price: 0.50,
+            monthPrice: 7.99,
             features: [
                 { title: "Full Access", value: true },
+                { title: "Ease of use Perks", value: true },
                 { title: "Preview Image", value: true },
                 { title: "Title Generation", value: true },
                 { title: "Custom Description Length", value: true },
@@ -114,7 +111,7 @@
                 { title: "Preview Code", value: true },
                 { title: "Generations History", value: true },
                 { title: "Max Keywords Count", value: 20 },
-                { title: "Daily Generation Quota", value: "unlimited" },
+                { title: "Monthly Generation Quota", value: 500 },
             ],
         },
     ];
@@ -238,15 +235,9 @@
         border-radius: 50%;
     }
 
-    .info-item:last-child {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
     .payment-methods {
         display: flex;
-        gap: 1rem;
+        gap: 1.5rem;
         margin-top: .5rem;
     }
 
@@ -263,6 +254,12 @@
 
     .plan-item:last-child {
         background-color: var(--color-pro-25);
+    }
+
+    .plan-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .plan-title {
@@ -293,7 +290,24 @@
         color: var(--color-pro);
     }
 
-    .plan-price span {
+    .old-plan-price {
+        position: relative;
+        font-size: 1.5rem;
+        color: var(--color-text);
+    }
+
+    .old-plan-price::after {
+        content: "";
+        width: 115%;
+        height: 3px;
+        position: absolute;
+        bottom: 40%;
+        left: -7.5%;
+        border-radius: .5rem;
+        background-color: var(--color-red);
+    }
+
+    .plan-pay-interval {
         font-size: 1rem;
         color: var(--color-text-alt-dark);
     }
