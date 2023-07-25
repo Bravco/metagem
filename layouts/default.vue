@@ -29,9 +29,25 @@
                             <li class="dropdown-item">
                                 <div>
                                     <p class="dropdown-item-label">Logged as</p>
-                                    <p>{{ auth.currentUser.email }}</p>
+                                    <b>{{ auth.currentUser.email }}</b>
                                 </div>
                                 <v-chip :color="paid ? 'var(--color-pro)' : 'var(--color-primary)'">{{ paid ? 'Pro' : 'Free' }}</v-chip>
+                            </li>
+                            <hr>
+                            <li v-if="paid" class="dropdown-item">
+                                <div>
+                                    <p class="dropdown-item-label">
+                                        {{ subscriptionExpiracyDate === null ? 'Next payment date' : 'Subscription expiracy date' }}
+                                    </p>
+                                    <b>
+                                        {{ (new Date).getUTCDate() }}
+                                        {{ monthNames[(new Date).getUTCMonth()] }}
+                                        {{ (new Date).getUTCFullYear() }}
+                                    </b>
+                                </div>
+                                <button class="dropdown-icon-btn small-icon-container" aria-label="Cancel subscription">
+                                    <Icon :name="subscriptionExpiracyDate === null ? 'fa6-solid:xmark' : 'fa6-solid:arrow-up'"/>
+                                </button>
                             </li>
                             <hr>
                             <li class="dropdown-item">
@@ -63,11 +79,17 @@
     import { signOut, onAuthStateChanged } from 'firebase/auth';
     import { doc, onSnapshot } from 'firebase/firestore';
 
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ];
+
     const { afterEach } = useRouter();
     const { auth, firestore } = useFirebase();
 
     const isLoggedIn = ref(false);
     const paid = ref(false);
+    const subscriptionExpiracyDate = ref(null);
     const isMobileMenuActive = ref(false);
     const isDropdownActive = ref(false);
 
@@ -226,13 +248,15 @@
         gap: 1rem;
         padding: 0 1rem;
     }
-    
-    .dropdown-item:first-child {
-        font-weight: bold;
+
+    .dropdown-btn, .upgrade-btn {
+        width: 100%;
     }
 
-    .dropdown-btn {
-        width: 100%;
+    .dropdown-icon-btn {
+        border: 2px solid var(--color-text-alt-light);
+        color: var(--color-text-alt-dark);
+        background-color: unset;
     }
 
     .dropdown-item-label {
