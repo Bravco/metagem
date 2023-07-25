@@ -315,8 +315,8 @@
     }
 
     .plan-item:last-child button {
-        background: linear-gradient(135deg, #D357FF 5.73%, var(--color-pro) 35.42%, #4B1EFF 70.31%, #2400FF 100%);
-        box-shadow: 0px 4px 20px 0px var(--color-pro);
+        background: var(--background-pro);
+        box-shadow: var(--box-shadow-pro);
     }
 
     .features {

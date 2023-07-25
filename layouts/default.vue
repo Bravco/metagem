@@ -37,7 +37,7 @@
                             <li v-if="paid" class="dropdown-item">
                                 <div>
                                     <p class="dropdown-item-label">
-                                        {{ subscriptionExpiracyDate === null ? 'Next payment date' : 'Subscription expiracy date' }}
+                                        {{ subscription === null ? 'Next payment date' : 'Subscription expiracy date' }}
                                     </p>
                                     <b>
                                         {{ (new Date).getUTCDate() }}
@@ -46,7 +46,12 @@
                                     </b>
                                 </div>
                                 <button class="dropdown-icon-btn small-icon-container" aria-label="Cancel subscription">
-                                    <Icon :name="subscriptionExpiracyDate === null ? 'fa6-solid:xmark' : 'fa6-solid:arrow-up'"/>
+                                    <Icon :name="subscription === null ? 'fa6-solid:xmark' : 'fa6-solid:arrow-up'"/>
+                                </button>
+                            </li>
+                            <li v-else class="dropdown-item">
+                                <button @click="navigateTo('/pricing')" class="upgrade-btn btn" aria-label="Upgrade to Pro">
+                                    Upgrade to Pro
                                 </button>
                             </li>
                             <hr>
@@ -88,17 +93,26 @@
     const { auth, firestore } = useFirebase();
 
     const isLoggedIn = ref(false);
-    const paid = ref(false);
-    const subscriptionExpiracyDate = ref(null);
+    const subscription = ref(null);
     const isMobileMenuActive = ref(false);
     const isDropdownActive = ref(false);
+
+    const paid = computed(() => {
+        if (subscription.value === null) {
+            return false;
+        } else {
+            return (new Date) < subscription.value;
+        }
+    });
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const userRef = doc(firestore, "users", auth.currentUser.uid);
             isLoggedIn.value = true;
             onSnapshot(userRef, (snapshot) => {
-                paid.value = snapshot.data().paid;
+                if (snapshot.data().subscription) {
+                    subscription.value = snapshot.data().subscription.toDate();
+                }
             });
         } else {
             isLoggedIn.value = false;
@@ -107,6 +121,7 @@
 
     afterEach(() => {
         isMobileMenuActive.value = false;
+        isDropdownActive.value = false;
     });
 
     function toggleMobileMenu() {
@@ -249,8 +264,14 @@
         padding: 0 1rem;
     }
 
-    .dropdown-btn, .upgrade-btn {
+    .dropdown-btn {
         width: 100%;
+    }
+
+    .upgrade-btn {
+        width: 100%;
+        background: var(--background-pro);
+        box-shadow: var(--box-shadow-pro);
     }
 
     .dropdown-icon-btn {

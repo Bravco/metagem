@@ -21,6 +21,8 @@
     --color-pro: rgb(123, 87, 255);
     --color-pro-50: rgba(123, 87, 255, .5);
     --color-pro-25: rgba(123, 87, 255, .25);
+    --background-pro: linear-gradient(135deg, #D357FF 5.73%, var(--color-pro) 35.42%, #4B1EFF 70.31%, #2400FF 100%);
+    --box-shadow-pro: 0px 4px 20px 0px var(--color-pro);
 }
 
 html {

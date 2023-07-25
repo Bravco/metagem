@@ -295,7 +295,7 @@
         { title: "Long", length: 30 },
     ];
 
-    const paid = ref(false);
+    const subscription = ref(null);
     const loading = ref(false);
     const websiteTitle = ref("");
     const websiteDescription = ref("");
@@ -307,6 +307,14 @@
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
     const isCopied = ref(false);
+
+    const paid = computed(() => {
+        if (subscription.value === null) {
+            return false;
+        } else {
+            return (new Date) < subscription.value;
+        }
+    });
 
     const keywordsMax = computed(() => {
         if (paid.value === true) {
@@ -414,7 +422,9 @@
     onMounted(async () => {
         const userRef = doc(firestore, "users", auth.currentUser.uid);
         onSnapshot(userRef, (snapshot) => {
-            paid.value = snapshot.data().paid;
+            if (snapshot.data().subscription) {
+                subscription.value = snapshot.data().subscription.toDate();
+            }
         });
     });
 </script>

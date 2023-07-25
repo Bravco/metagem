@@ -151,7 +151,6 @@
         const defaultData = {
             uid: user.uid,
             email: user.email,
-            paid: false,
         };
 
         getDoc(userRef).then((doc) => {
