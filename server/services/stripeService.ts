@@ -41,6 +41,7 @@ export async function deleteCustomer(customerId: string): Promise<any> {
     querySnapshot.docs.forEach(doc => {
         doc.ref.update({
             stripeCustomerId: FieldValue.delete(),
+            subscription: FieldValue.delete(),
         });
     });
 }
