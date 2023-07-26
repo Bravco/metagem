@@ -80,6 +80,11 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
   },
+  vite: {
+    define: {
+      "process.env.DEBUG": false,
+    },
+  },
   chatgpt: {
     apiKey: process.env.OPENAI_API_KEY,
   },
