@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { FieldValue } from "firebase-admin/firestore";
 import { firestore } from "../utils/firebase";
 import { stripe } from "../utils/stripe";
 import { SubPostRes } from "../types/SubPostRes";
@@ -39,7 +40,7 @@ export async function deleteCustomer(customerId: string): Promise<any> {
     const querySnapshot = await firestore.collection("/users").where("stripeCustomerId", "==", customerId).get();
     querySnapshot.docs.forEach(doc => {
         doc.ref.update({
-            stripeCustomerId: null,
+            stripeCustomerId: FieldValue.delete(),
         });
     });
 }
@@ -59,7 +60,7 @@ export async function deleteSubscription(subscription: Stripe.Subscription): Pro
     const querySnapshot = await firestore.collection("/users").where("stripeCustomerId", "==", subscription.customer).get();
     querySnapshot.docs.forEach(doc => {
         doc.ref.update({
-            subscription: null,
+            subscription: FieldValue.delete(),
         });
     });
 }
