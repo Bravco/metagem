@@ -20,7 +20,7 @@
                     </button>
                     <div v-if="isLoggedIn && auth.currentUser" class="dropdown">
                         <button @click.prevent="toggleDropdown" class="dropdown-toggle-btn" aria-label="Toggle dropdown">
-                            <nuxt-img v-if="auth.currentUser.photoURL" class="profile-picture" :src="auth.currentUser.photoURL" alt="profile-picture"/>
+                            <nuxt-img v-if="photoURL" class="profile-picture" :src="photoURL" alt="profile-picture"/>
                             <div v-else class="profile-picture-placeholder">
                                 <Icon name="fa6-solid:user" size="1.25rem"/>
                             </div>
@@ -93,6 +93,7 @@
     const { auth, firestore } = useFirebase();
 
     const isLoggedIn = ref(false);
+    const photoURL = ref(null);
     const subscription = ref(null);
     const isMobileMenuActive = ref(false);
     const isDropdownActive = ref(false);
@@ -107,6 +108,8 @@
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
+            photoURL.value = auth.currentUser.photoURL;
+
             const userRef = doc(firestore, "users", user.uid);
             isLoggedIn.value = true;
             onSnapshot(userRef, (snapshot) => {
