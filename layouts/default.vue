@@ -20,7 +20,7 @@
                     </button>
                     <div v-if="isLoggedIn && auth.currentUser" class="dropdown">
                         <button @click.prevent="toggleDropdown" class="dropdown-toggle-btn" aria-label="Toggle dropdown">
-                            <nuxt-img v-if="photoURL" class="profile-picture" :src="photoURL" alt="profile-picture"/>
+                            <img v-if="photoURL" class="profile-picture" :src="photoURL" alt="profile-picture">
                             <div v-else class="profile-picture-placeholder">
                                 <Icon name="fa6-solid:user" size="1.25rem"/>
                             </div>
