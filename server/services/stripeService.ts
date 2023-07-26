@@ -28,7 +28,7 @@ export async function getSubscribeUrl(lookupKey: string, user: any): Promise<Sub
             },
         ],
         mode: "subscription",
-        success_url: `${config.public.APP_DOMAIN}/subscribe/success?sesson_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${config.public.APP_DOMAIN}`,
         cancel_url: `${config.public.APP_DOMAIN}`,
         customer: user.stripeCustomerId,
     });

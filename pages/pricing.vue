@@ -173,7 +173,7 @@
             ];
 
             const form = document.createElement("form");
-            form.action = "/api/subscribe";
+            form.action = "/api/stripe/subscribe";
             form.method = "POST";
 
             fields.forEach(field => {

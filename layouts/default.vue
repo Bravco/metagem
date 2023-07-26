@@ -34,8 +34,20 @@
                                 <v-chip :color="paid ? 'var(--color-pro)' : 'var(--color-primary)'">{{ paid ? 'Pro' : 'Free' }}</v-chip>
                             </li>
                             <hr>
+                            <li v-if="paid" class="dropdown-item">
+                                <div>
+                                    <p class="dropdown-item-label">
+                                        Subscription expiration date
+                                    </p>
+                                    <b v-if="subscription !== null">
+                                        {{ subscription.getUTCDate() }}
+                                        {{ monthNames[subscription.getUTCMonth()] }}
+                                        {{ subscription.getUTCFullYear() }}
+                                    </b>
+                                </div>
+                            </li>
                             <li class="dropdown-item">
-                                <button v-if="paid" class="btn" aria-label="Manage subscription">
+                                <button v-if="paid" @click.prevent="manageSubscription" class="btn" ria-label="Manage subscription">
                                     Manage subscription
                                 </button>
                                 <button v-else @click="navigateTo('/pricing')" class="btn" aria-label="Upgrade to Pro">
@@ -72,6 +84,11 @@
     import { signOut, onAuthStateChanged } from 'firebase/auth';
     import { doc, onSnapshot } from 'firebase/firestore';
 
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ];
+
     const { afterEach } = useRouter();
     const { auth, firestore } = useFirebase();
 
@@ -88,9 +105,9 @@
         }
     });
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
-            const userRef = doc(firestore, "users", auth.currentUser.uid);
+            const userRef = doc(firestore, "users", user.uid);
             isLoggedIn.value = true;
             onSnapshot(userRef, (snapshot) => {
                 if (snapshot.data().subscription) {
@@ -128,6 +145,33 @@
             }
 		}
 	}
+
+    function manageSubscription() {
+        if (auth.currentUser) {
+            const fields = [
+                {
+                    name: "user_id",
+                    value: auth.currentUser.uid,
+                },
+            ];
+
+            const form = document.createElement("form");
+            form.action = "/api/stripe/manageSubscription";
+            form.method = "POST";
+
+            fields.forEach(field => {
+                const formField = document.createElement("input");
+                formField.type = "hidden";
+                formField.name = field.name;
+                formField.value = field.value;
+                form.appendChild(formField);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+    }
 
 	onMounted(() => {
 		if (process.client) {

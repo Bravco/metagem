@@ -1,16 +1,19 @@
+import { firestore } from "../../utils/firebase";
 import { stripe } from "../../utils/stripe";
 
 const config = useRuntimeConfig();
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const sessionId = body.session_id;
+    const userId = body.user_id;
+    
+    const userRef = await firestore.collection("/users").doc(userId).get();
+    const customerId = userRef.data()!.stripeCustomerId;
 
     const returnUrl = config.public.APP_DOMAIN;
 
-    const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
     const portalSession = await stripe.billingPortal.sessions.create({
-        customer: checkoutSession.customer as string,
+        customer: customerId,
         return_url: returnUrl,
     });
 

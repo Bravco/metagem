@@ -1,4 +1,4 @@
-import { firestore } from "../utils/firebase";
+import { firestore } from "../../utils/firebase";
 import { getSubscribeUrl } from "~/server/services/stripeService";
 
 export default defineEventHandler(async (event) => {
