@@ -57,8 +57,8 @@
                             Try for free
                             <Icon name="fa6-solid:arrow-right-long" size="1em"/>
                         </button>
-                        <button v-else class="cta-btn" aria-label="Buy now">
-                            Buy now
+                        <button v-else @click.prevent="subscribe" class="cta-btn" aria-label="Subscribe now">
+                            Subscribe now
                             <Icon name="fa6-solid:money-bill-transfer" size="1.5rem"/>
                         </button>
                         <ul class="features">
@@ -80,6 +80,7 @@
 </template>
 
 <script setup>
+    import { onAuthStateChanged } from "firebase/auth";
     import { doc, getDoc, updateDoc } from "firebase/firestore";
     import { useVuelidate } from "@vuelidate/core";
     import { required, email } from "@vuelidate/validators";
@@ -117,8 +118,9 @@
         },
     ];
 
-    const { firestore } = useFirebase();
+    const { auth, firestore } = useFirebase();
 
+    const isLoggedIn = ref(false);
     const submittedWaitlist = ref(false);
     const state = reactive({email: ""});
 
@@ -127,6 +129,14 @@
     });
 
     const v$ = useVuelidate(rules, state);
+
+    onAuthStateChanged(auth, () => {
+        if (auth.currentUser) {
+            isLoggedIn.value = true;
+        } else {
+            isLoggedIn.value = false;
+        }
+    });
 
     async function joinWaitlist() {
         const valid = await v$.value.$validate();
@@ -146,6 +156,39 @@
             setTimeout(() => {
                 submittedWaitlist.value = false;
             }, 3000);
+        }
+    }
+
+    function subscribe() {
+        if (auth.currentUser) {
+            const fields = [
+                {
+                    name: "lookup_key", 
+                    value: "price_1NXm9EDrzKjvK8oSzgLkI9sx",
+                },
+                {
+                    name: "user_id",
+                    value: auth.currentUser.uid,
+                },
+            ];
+
+            const form = document.createElement("form");
+            form.action = "/api/subscribe";
+            form.method = "POST";
+
+            fields.forEach(field => {
+                const formField = document.createElement("input");
+                formField.type = "hidden";
+                formField.name = field.name;
+                formField.value = field.value;
+                form.appendChild(formField);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        } else {
+            navigateTo("/auth");
         }
     }
 </script>

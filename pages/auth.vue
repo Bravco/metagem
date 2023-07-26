@@ -161,6 +161,8 @@
                 setDoc(doc.ref, defaultData);
             }
         });
+
+        navigateTo("/");
     }
 
     async function signUp() {
@@ -174,7 +176,6 @@
             createUserWithEmailAndPassword(auth, state.email, state.password).then((result) => {
                 assignUserData(result.user);
                 sendEmailVerification(auth.currentUser);
-                navigateTo("/generator");
             }).catch((error) => {
                 switch (error.code) {
                     case "auth/email-already-in-use":
@@ -196,7 +197,6 @@
 
         signInWithEmailAndPassword(auth, state.email, state.password).then((result) => {
             assignUserData(result.user);
-            navigateTo("/generator");
         }).catch((error) => {
             switch (error.code) {
                 case "auth/invalid-email":
@@ -225,7 +225,6 @@
 
         signInWithPopup(auth, googleProvider).then((result) => {
             assignUserData(result.user);
-            navigateTo("/generator");
         });
     }
 

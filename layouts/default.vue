@@ -34,23 +34,11 @@
                                 <v-chip :color="paid ? 'var(--color-pro)' : 'var(--color-primary)'">{{ paid ? 'Pro' : 'Free' }}</v-chip>
                             </li>
                             <hr>
-                            <li v-if="paid" class="dropdown-item">
-                                <div>
-                                    <p class="dropdown-item-label">
-                                        {{ subscription === null ? 'Next payment date' : 'Subscription expiracy date' }}
-                                    </p>
-                                    <b>
-                                        {{ (new Date).getUTCDate() }}
-                                        {{ monthNames[(new Date).getUTCMonth()] }}
-                                        {{ (new Date).getUTCFullYear() }}
-                                    </b>
-                                </div>
-                                <button class="dropdown-icon-btn small-icon-container" aria-label="Cancel subscription">
-                                    <Icon :name="subscription === null ? 'fa6-solid:xmark' : 'fa6-solid:arrow-up'"/>
+                            <li class="dropdown-item">
+                                <button v-if="paid" class="btn" aria-label="Manage subscription">
+                                    Manage subscription
                                 </button>
-                            </li>
-                            <li v-else class="dropdown-item">
-                                <button @click="navigateTo('/pricing')" class="upgrade-btn btn" aria-label="Upgrade to Pro">
+                                <button v-else @click="navigateTo('/pricing')" class="btn" aria-label="Upgrade to Pro">
                                     Upgrade to Pro
                                 </button>
                             </li>
@@ -83,11 +71,6 @@
 <script setup>
     import { signOut, onAuthStateChanged } from 'firebase/auth';
     import { doc, onSnapshot } from 'firebase/firestore';
-
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December",
-    ];
 
     const { afterEach } = useRouter();
     const { auth, firestore } = useFirebase();
@@ -264,14 +247,8 @@
         padding: 0 1rem;
     }
 
-    .dropdown-btn {
+    .dropdown-item button {
         width: 100%;
-    }
-
-    .upgrade-btn {
-        width: 100%;
-        background: var(--background-pro);
-        box-shadow: var(--box-shadow-pro);
     }
 
     .dropdown-icon-btn {

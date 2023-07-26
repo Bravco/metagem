@@ -7,7 +7,11 @@ export default defineNuxtConfig({
     "@invictus.codes/nuxt-vuetify",
   ],
   runtimeConfig: {
+    private: {
+      STRIPE_API_KEY: process.env.STRIPE_API_KEY,
+    },
     public: {
+      APP_DOMAIN: process.env.APP_DOMAIN,
       FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
       FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
       FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,

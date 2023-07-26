@@ -770,10 +770,6 @@
         text-decoration: underline;
     }
 
-    .loading-icon {
-        color: var(--color-primary);
-    }
-
     .upgrade-msg {
         text-align: center;
         color: var(--color-red);
