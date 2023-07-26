@@ -75,6 +75,14 @@
         </main>
         <footer>
             <Logo/>
+            <ul class="nav-list">
+                <li>
+                    <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/tos">Terms of Service</NuxtLink>
+                </li>
+            </ul>
             <p>&copy; 2023 metagen | All rights reserved</p>
         </footer>
     </div>
@@ -192,15 +200,15 @@
 <style scoped>
     nav, footer {
         width: 100vw;
-        padding: 1rem 10%;
+        display: grid;
+        grid-template-columns: 1fr 5fr 1fr;
+        place-items: center;
     }
 
     nav {
-        display: grid;
-        grid-template-columns: 1fr 10fr 1fr;
-        place-items: center;
         position: fixed;
         top: 0;
+        padding: 1rem 10%;
         z-index: 100;
         background-color: var(--color-background-primary);
     }
@@ -312,11 +320,9 @@
     .hamburger {
         display: none;
     }
-    
+
     footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        padding: 1rem 10% 2rem 10%;
     }
 
     footer p {

@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-chatgpt",
     "@nuxt/image",
+    "@nuxt/content",
     "nuxt-icon",
     "@invictus.codes/nuxt-vuetify",
   ],
