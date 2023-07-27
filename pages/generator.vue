@@ -1,12 +1,12 @@
 <template>
     <div>
         <div class="page-heading">
-            <h1 class="page-title"><span>Metadata</span> generator</h1>
-            <p class="page-subtitle">
+            <h1 v-motion="$motion(false)" class="page-title"><span>Metadata</span> generator</h1>
+            <p v-motion="$motion(false, 300)" class="page-subtitle">
                 Optimize your <span>SEO</span> for business development and company growth. Powered by <span>AI</span>.
             </p>
         </div>
-        <div class="wrapper">
+        <div v-motion="$motion(false, 600)" class="wrapper">
             <div class="container">
                 <div class="content-wrapper">
                     <h3>INPUT</h3>
@@ -314,6 +314,8 @@
     definePageMeta({
         middleware: ["auth"],
     });
+
+    const { $motion } = useNuxtApp();
 
     const { chat } = useChatgpt();
     const { auth, firestore } = useFirebase();

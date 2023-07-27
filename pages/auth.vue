@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="wrapper">
-            <nuxt-img class="auth-img" src="images/auth.webp" alt="auth-image"/>
+        <div v-motion="$motion(false)" class="wrapper">
+            <nuxt-img class="auth-img" src="images/robot-auth.svg" alt="auth-image"/>
             <div class="auth-wrapper">
                 <div v-if="forgotPassword" class="auth-container">
                     <div >

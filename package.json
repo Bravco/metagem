@@ -21,6 +21,7 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.3",
+    "@vueuse/motion": "^2.0.0",
     "firebase": "^10.1.0",
     "firebase-admin": "^11.10.1",
     "stripe": "^12.14.0"

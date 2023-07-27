@@ -2,15 +2,15 @@
     <div>
         <section ref="perspectiveWrapper" id="hero">
 			<div class="page-heading">
-				<h1 class="page-title">
+				<h1 v-motion="$motion(false)" class="page-title">
 					<span>Maximize</span> your <span>online reach</span>
 					with precisely generated metadata
 				</h1>
-				<p class="page-subtitle">
+				<p v-motion="$motion(false, 300)" class="page-subtitle">
 					Unleash the power of <span>AI</span> for superior website reach and rankings.
 					Massively enhance your <span>SEO</span> for greater success.
 				</p>
-				<div class="btns">
+				<div v-motion="$motion(false, 600)" class="btns">
 					<button @click.prevent="navigateTo('#about')" class="outlined-btn" aria-label="Learn more">
 						Learn more<Icon name="fa6-solid:arrow-turn-down"/>
 					</button>
@@ -19,12 +19,12 @@
 					</button>
 				</div>
 			</div>
-            <nuxt-img class="preview-img" src="images/preview.webp" alt="preview-image"/>
+            <nuxt-img v-motion="$motion(false, 900)" class="preview-img" src="images/preview.webp" alt="preview-image"/>
         </section>
 		<section id="benefits">
-			<span class="big-bg-text">Better search rankings</span>
+			<span v-motion="$motion()" class="big-bg-text">Better search rankings</span>
 			<ul class="benefit-list">
-				<li class="benefit-item">
+				<li v-motion="$motion(true)" class="benefit-item">
 					<div class="benefit-heading">
 						<span class="icon-container">
 							<Icon name="fa6-solid:magnifying-glass-dollar" size="1.5rem"/>
@@ -33,7 +33,7 @@
 					</div>
 					<p>The improved SEO metadata generator offers advanced AI-driven keyword research, schema markup for rich snippets, and mobile-friendly optimization, boosting search engine visibility and organic traffic.</p>
 				</li>
-				<li class="benefit-item">
+				<li v-motion="$motion(true, 300)" class="benefit-item">
 					<div class="benefit-heading">
 						<span class="icon-container">
 							<Icon name="fa6-solid:pen-ruler" size="1.5rem"/>
@@ -42,7 +42,7 @@
 					</div>
 					<p>The fully customizable metadata generator allows users to tailor metadata fields, formats, and options, providing maximum flexibility and accuracy for data organization and retrieval.</p>
 				</li>
-				<li class="benefit-item">
+				<li v-motion="$motion(true, 600)" class="benefit-item">
 					<div class="benefit-heading">
 						<span class="icon-container">
 							<Icon name="fa6-solid:robot" size="1.5rem"/>
@@ -55,7 +55,7 @@
 		</section>
 		<section id="about">
 			<div class="about-content">
-				<div>
+				<div v-motion="$motion()">
 					<h2>About <span>metagen</span></h2>
 					<div class="about-text">
 						<p>Your AI-powered metadata ally. Elevate SEO with personalized meta tags, captivating titles, and compelling descriptions for digital success.</p>
@@ -68,7 +68,7 @@
 					</div>
 				</div>
 				<ul class="about-benefit-list">
-					<li class="about-benefit-item">
+					<li v-motion="$motion(true, 300)" class="about-benefit-item">
 						<span class="big-icon-container">
 							<Icon name="fa6-solid:wand-magic-sparkles" size="2rem"/>
 						</span>
@@ -78,7 +78,7 @@
 							Get started - it's free<Icon name="fa6-solid:arrow-right-long"/>
 						</button>
 					</li>
-					<li class="about-benefit-item">
+					<li v-motion="$motion(true, 600)" class="about-benefit-item">
 						<span class="big-icon-container">
 							<Icon name="fa6-solid:traffic-light" size="2rem"/>
 						</span>
@@ -87,12 +87,12 @@
 					</li>
 				</ul>
 			</div>
-			<nuxt-img class="about-img" loading="lazy" src="images/about.webp" alt="about-img"/>
+			<nuxt-img v-motion="$motion(true, 300)" class="about-img" loading="lazy" src="images/robot-about.svg" alt="about-img"/>
 		</section>
 		<section id="faq">
-			<h2>Frequently asked <span>questions</span></h2>
+			<h2 v-motion="$motion()">Frequently asked <span>questions</span></h2>
 			<ul class="faq-list">
-				<li v-for="faq in faqs" @click="selectFaqItem(faq.id)" class="faq-item">
+				<li v-for="faq in faqs" v-motion="$motion(true, faq.id*300)" @click="selectFaqItem(faq.id)" class="faq-item">
 					<div class="faq-top">
 						<div class="faq-leading">
 							<span class="small-icon-container">
@@ -115,6 +115,8 @@
 	useHead({
         title: "metagen | Home",
     });
+	
+	const { $motion } = useNuxtApp();
 
 	const faqs = [
 		{
@@ -294,8 +296,6 @@
 		height: 80vh;
 		object-fit: cover;
 		object-position: center;
-		border-radius: .5rem;
-		box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, .1);
 	}
 
 	.faq-list {

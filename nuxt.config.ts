@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-icon",
     "@invictus.codes/nuxt-vuetify",
+    "@vueuse/motion/nuxt",
   ],
   runtimeConfig: {
     private: {

@@ -2,15 +2,15 @@
     <div>
         <section>
             <div class="page-heading">
-                <h1 class="page-title"><span>Transparent</span> pricing: choose what works for <span>you</span></h1>
-                <p class="page-subtitle">
+                <h1 v-motion="$motion(false)" class="page-title"><span>Transparent</span> pricing: choose what works for <span>you</span></h1>
+                <p v-motion="$motion(false, 300)" class="page-subtitle">
 					Simplify your payments with our convenient <span>subscription</span> plans
                     which provide you <span>control</span> over expenses and usage.
 				</p>
             </div>
             <div class="main-grid">
                 <ul class="info-list">
-                    <li class="info-item">
+                    <li v-motion="$motion(false, 600)" class="info-item">
                         <div class="info-heading">
                             <h2>Join the waitlist now</h2>
                             <p>
@@ -26,7 +26,7 @@
                         </form>
                         <p v-if="submittedWaitlist" class="success">Your email address was successfully added to the waitlist.</p>
                     </li>
-                    <li class="info-item">
+                    <li v-motion="$motion(false, 900)" class="info-item">
                         <h4>Supported payment methods</h4>
                         <div class="payment-methods">
                             <Icon name="logos:visa"/>
@@ -39,7 +39,7 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="plan-list">
+                <ul v-motion="$motion(false, 600)" class="plan-list">
                     <li v-for="plan in plans" :key="plan" class="plan-item">
                         <div>
                             <div class="plan-heading">
@@ -91,6 +91,8 @@
     useHead({
         title: "metagen | Pricing",
     });
+
+    const { $motion } = useNuxtApp();
 
     const plans = [
         {
