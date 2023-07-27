@@ -102,7 +102,7 @@
                 { title: "Preview Image", value: true },
                 { title: "Title Generation", value: true },
                 { title: "Max Keywords Count", value: 3 },
-                { title: "Monthly Generation Quota", value: 5 },
+                { title: "Lifetime Generation Quota", value: 5 },
             ],
         },
         {

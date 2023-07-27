@@ -65,3 +65,12 @@ export async function deleteSubscription(subscription: Stripe.Subscription): Pro
         });
     });
 }
+
+export async function refreshGenerationsCount(invoice: Stripe.Invoice): Promise<any> {
+    const querySnapshot = await firestore.collection("/users").where("stripeCustomerId", "==", invoice.customer).get();
+    querySnapshot.docs.forEach(doc => {
+        doc.ref.update({
+            generationsCount: 0,
+        });
+    });
+}

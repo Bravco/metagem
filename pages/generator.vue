@@ -90,13 +90,29 @@
                                 track-color="var(--color-text-alt-light)"
                             ></v-slider>
                         </li>
-                        <button @click.prevent="generateMetadata" class="btn"><Icon name="fa6-solid:bolt"/>Generate</button>
+                        <div class="generate-btn-wrapper">
+                            <v-tooltip width="auto">
+                                <p>Free trial has lifetime max 10 generations.</p>
+                                <p>Professional plan gives 500 generations per month.</p>
+                                <template v-slot:activator="{ props }">
+                                    <span v-bind="props">
+                                        Generations:
+                                        {{ generationsCount ? generationsCount : 0 }}
+                                        /
+                                        {{ paid ? 500 : 5 }}
+                                    </span>
+                                </template>
+                            </v-tooltip>
+                            <button @click.prevent="generateMetadata" class="btn"><Icon name="fa6-solid:bolt"/>Generate</button>
+                        </div>
                     </ul>
-                    <div v-if="paid === false" class="upgrade-msg">
-                        <p>
-                            <Icon name="fa6-solid:triangle-exclamation"/>
-                            This is free trial version with restrictions.
-                        </p>
+                    <div v-if="errorMsg" class="error-msg">
+                        <Icon name="fa6-solid:triangle-exclamation"/>
+                        You have reached maximum generations count.
+                    </div>
+                    <div v-if="paid === false" class="error-msg">
+                        <Icon name="fa6-solid:triangle-exclamation"/>
+                        This is free trial version with restrictions.
                         <button @click.prevent="navigateTo('/pricing')" class="upgrade-btn" aria-label="Upgrade now">Upgrade now for full access!</button>
                     </div>
                 </div>
@@ -289,7 +305,7 @@
 </template>
 
 <script setup>
-    import { collection, doc, onSnapshot, addDoc, updateDoc, getDocs, deleteDoc, deleteField } from "firebase/firestore";
+    import { collection, doc, onSnapshot, addDoc, updateDoc, getDocs, deleteDoc, deleteField, getDoc } from "firebase/firestore";
 
     useHead({
         title: "metagen | Metadata Generator",
@@ -309,6 +325,7 @@
     ];
 
     const subscription = ref(null);
+    const generationsCount = ref(null);
     const loading = ref(false);
     const websiteTitle = ref("");
     const websiteDescription = ref("");
@@ -320,6 +337,7 @@
     const selectedResponseIndex = ref(0);
     const codeDialog = ref(false);
     const isCopied = ref(false);
+    const errorMsg = ref(null);
 
     const paid = computed(() => {
         if (subscription.value === null) {
@@ -432,6 +450,13 @@
     }
 
     async function generateMetadata() {
+        const userRef = doc(firestore, "users", auth.currentUser.uid);
+
+        if ((paid.value === false && generationsCount.value >= 5) || (paid.value === true && generationsCount.value >= 500)) {
+            errorMsg.value = true;
+            return;
+        }
+
         if (websiteTitle.value === "" || websiteDescription.value === "") return;
 
         loading.value = true;
@@ -473,13 +498,23 @@
         }
 
         responses.value.push(newResponse);
+
+        updateDoc(userRef, {
+            generationsCount: generationsCount.value ? generationsCount.value+1 : 1,
+        });
     }
 
     onMounted(async () => {
         const userRef = doc(firestore, "users", auth.currentUser.uid);
         onSnapshot(userRef, (snapshot) => {
-            if (snapshot.data().subscription) {
-                subscription.value = snapshot.data().subscription.toDate();
+            const data = snapshot.data();
+
+            if (data.subscription) {
+                subscription.value = data.subscription.toDate();
+            }
+
+            if (data.generationsCount) {
+                generationsCount.value = data.generationsCount;
             }
         });
 
@@ -569,6 +604,17 @@
         display: flex;
         justify-content: space-between;
         color: var(--color-text-alt-dark);
+    }
+
+    .generate-btn-wrapper {
+        display: grid;
+        place-items: center;
+    }
+
+    .generate-btn-wrapper span {
+        font-weight: bold;
+        color: var(--color-text-alt-light);
+        cursor: pointer;
     }
 
     .input-preview-img-container, .input-preview-img-container img, .input-preview-img-placeholder {
@@ -840,7 +886,7 @@
         text-decoration: underline;
     }
 
-    .upgrade-msg {
+    .error-msg {
         text-align: center;
         color: var(--color-red);
     }
