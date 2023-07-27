@@ -7,6 +7,12 @@
   </div>
 </template>
 
+<script scoped>
+  useHead({
+    title: "metagen | Terms of Service",
+  });
+</script>
+
 <style scoped>
   * {
     line-height: 2rem;

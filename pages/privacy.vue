@@ -6,6 +6,12 @@
     </section>
   </div>
 </template>
+
+<script scoped>
+  useHead({
+    title: "metagen | Privacy Policy",
+  });
+</script>
   
 <style scoped>
   * {

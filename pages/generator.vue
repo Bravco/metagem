@@ -97,14 +97,14 @@
                             <Icon name="fa6-solid:triangle-exclamation"/>
                             This is free trial version with restrictions.
                         </p>
-                        <a class="upgrade-btn">Upgrade now for full access!</a>
+                        <button @click.prevent="navigateTo('/pricing')" class="upgrade-btn" aria-label="Upgrade now">Upgrade now for full access!</button>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="content-wrapper">
                     <h3>METADATA</h3>
-                    <ul class="content-list">
+                    <ul class="content-list response-list">
                         <li 
                             v-for="(response, index) in responses" 
                             :key="index"
@@ -120,16 +120,25 @@
                                     <p 
                                         class="response-author"
                                         :contenteditable="paid"
-                                        @input="(e) => { response.author = e.target.innerText }"
+                                        @input="(e) => {
+                                            response.author = e.target.innerText;
+                                            updateFirestoreField(response, 'author');
+                                        }"
                                     >{{ response.author }}</p>
                                     <h3 
                                         :contenteditable="paid" 
-                                        @input="(e) => { response.title = e.target.innerText }"
+                                        @input="(e) => { 
+                                            response.title = e.target.innerText;
+                                            updateFirestoreField(response, 'title');
+                                        }"
                                     >{{ response.title }}</h3>
                                 </div>
                                 <p
                                     :contenteditable="paid"
-                                    @input="(e) => { response.description = e.target.innerText }"
+                                    @input="(e) => {
+                                        response.description = e.target.innerText;
+                                        updateFirestoreField(response, 'description');
+                                    }"
                                 >{{ response.description }}</p>
                                 <ul v-if="selectedResponseIndex === index" class="keyword-list">
                                     <li v-for="(keyword, index) in response.keywords" :key="index" class="keyword-item">
@@ -162,9 +171,9 @@
                                         </button>
                                     </div>
                                     <div class="actions">
-                                        <v-dialog :disabled="!paid" v-model="codeDialog" width="auto">
+                                        <v-dialog v-model="codeDialog" width="auto">
                                             <template v-slot:activator="{ props }">
-                                                <button v-bind="props" :class="['code-btn', {inactive: paid === false}]">
+                                                <button v-bind="props" class="code-btn">
                                                     <Icon name="fa6-solid:code" size="1rem"/>
                                                 </button>
                                             </template>
@@ -237,8 +246,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p class="google-title preview-text">{{ responses[selectedResponseIndex].title }}</p>
-                                    <p class="preview-description preview-text">{{ responses[selectedResponseIndex].description }}</p>
+                                    <p v-if="responses[selectedResponseIndex].title" class="google-title preview-text">
+                                        {{ responses[selectedResponseIndex].title }}
+                                    </p>
+                                    <p v-if="responses[selectedResponseIndex].description" class="preview-description preview-text">
+                                        {{ responses[selectedResponseIndex].description }}
+                                    </p>
                                 </div>
                             </div>
                         </li>
@@ -276,10 +289,10 @@
 </template>
 
 <script setup>
-    import { doc, onSnapshot } from "firebase/firestore";
+    import { collection, doc, onSnapshot, addDoc, updateDoc, getDocs, deleteDoc, deleteField } from "firebase/firestore";
 
     useHead({
-        title: "metagen | Generator",
+        title: "metagen | Metadata Generator",
     });
 
     definePageMeta({
@@ -347,32 +360,66 @@
         }
     }
 
-    function addKeyword() {
-        if (responses.value[selectedResponseIndex.value].keywords) {
-            responses.value[selectedResponseIndex.value].keywords.push("New Keyword");
-        } else {
-            responses.value[selectedResponseIndex.value].keywords = ["New Keyword"];
+    function updateFirestoreField(response, key) {
+        if (response.id) {
+            const responseRef = doc(firestore, "users", auth.currentUser.uid, "responses", response.id);
+            updateDoc(responseRef, {
+                [key]: response[key],
+            });
         }
     }
 
+    function addKeyword() {
+        const selectedResponse = responses.value[selectedResponseIndex.value];
+
+        if (selectedResponse.keywords) {
+            selectedResponse.keywords.push("New Keyword");
+        } else {
+            selectedResponse.keywords = ["New Keyword"];
+        }
+
+        updateFirestoreField(selectedResponse, "keywords");
+    }
+
     function removeKeyword(keyword) {
-        responses.value[selectedResponseIndex.value].keywords.pop(keyword);
-        if (responses.value[selectedResponseIndex.value].keywords.length === 0) {
-            delete responses.value[selectedResponseIndex.value].keywords;
+        const selectedResponse = responses.value[selectedResponseIndex.value];
+
+        selectedResponse.keywords.pop(keyword);
+        if (selectedResponse.keywords.length === 0) {
+            delete selectedResponse.keywords;
+        }
+
+        if (selectedResponse.id) {
+            const responseRef = doc(firestore, "users", auth.currentUser.uid, "responses", selectedResponse.id);
+            const keywordsUpdate = { keywords: selectedResponse.keywords ? selectedResponse.keywords : deleteField() };
+            updateDoc(responseRef, keywordsUpdate);
         }
     }
 
     function setResponseFeedback(value) {
-        if (responses.value[selectedResponseIndex.value].feedback === value) {
-            delete responses.value[selectedResponseIndex.value].feedback;
+        const selectedResponse = responses.value[selectedResponseIndex.value];
+
+        if (selectedResponse.feedback === value) {
+            delete selectedResponse.feedback;
         } else {
-            responses.value[selectedResponseIndex.value].feedback = value;
+            selectedResponse.feedback = value;
+        }
+
+        if (selectedResponse.id) {
+            const responseRef = doc(firestore, "users", auth.currentUser.uid, "responses", selectedResponse.id);
+            const feedbackUpdate = { feedback: selectedResponse.feedback === value ? value : deleteField() };
+            updateDoc(responseRef, feedbackUpdate);
         }
     }
 
     function deleteResponse(response) {
         selectedResponseIndex.value = 0;
-        responses.value = responses.value.filter(e => e !== response)
+        responses.value = responses.value.filter(e => e !== response);
+
+        if (response.id) {
+            const responseRef = doc(firestore, "users", auth.currentUser.uid, "responses", response.id);
+            deleteDoc(responseRef);
+        }
     }
 
     function copyMeta() {
@@ -416,6 +463,15 @@
 
         loading.value = false;
 
+        if (paid) {
+            const responsesCollection = collection(firestore, "users", auth.currentUser.uid, "responses");
+            const responseRef = await addDoc(responsesCollection, newResponse);
+            updateDoc(responseRef, {
+                id: responseRef.id,
+            });
+            newResponse.id = responseRef.id;
+        }
+
         responses.value.push(newResponse);
     }
 
@@ -425,6 +481,15 @@
             if (snapshot.data().subscription) {
                 subscription.value = snapshot.data().subscription.toDate();
             }
+        });
+
+        const responsesCollection = collection(firestore, "users", auth.currentUser.uid, "responses");
+        getDocs(responsesCollection).then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+                let response = doc.data();
+                response.createdDate = response.createdDate.toDate();
+                responses.value.push(response);
+            });
         });
     });
 </script>
@@ -451,7 +516,7 @@
     }
 
     .container:first-of-type {
-        height: min-content;
+        height: fit-content;
     }
 
     .divider {
@@ -487,6 +552,11 @@
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+    }
+
+    .response-list {
+        max-height: 100vh;
+        overflow-y: auto;
     }
 
     .content-item {

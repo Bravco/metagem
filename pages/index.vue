@@ -74,7 +74,7 @@
 						</span>
 						<h3>AI-Powered Metadata Generation</h3>
 						<p>We use advanced AI algorithms to analyze website content and generate tailor-made metadata, including meta tags, titles, and descriptions.</p>
-						<button @click.prevent="navigateTo('generator')" class="cta-btn" aria-label="Try for free">
+						<button @click.prevent="navigateTo('/generator')" class="cta-btn" aria-label="Try for free">
 							Get started - it's free<Icon name="fa6-solid:arrow-right-long"/>
 						</button>
 					</li>

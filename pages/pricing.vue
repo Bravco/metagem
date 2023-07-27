@@ -13,7 +13,10 @@
                     <li class="info-item">
                         <div class="info-heading">
                             <h2>Join the waitlist now</h2>
-                            <p>We are releasing new generators for <span>instagram hashtags, youtube keywords</span> and more soon!</p>
+                            <p>
+                                We are releasing new generators for <span>instagram hashtags, youtube keywords</span> and more soon.
+                                Sign up to ensure you won't miss out!
+                            </p>
                         </div>
                         <form @submit.prevent="joinWaitlist" class="inputfield">
                             <input v-model="state.email" type="email" name="email" id="email" placeholder="Enter your email address" required>
@@ -85,6 +88,10 @@
     import { useVuelidate } from "@vuelidate/core";
     import { required, email } from "@vuelidate/validators";
 
+    useHead({
+        title: "metagen | Pricing",
+    });
+
     const plans = [
         {
             iconName: "fa6-solid:feather",
@@ -110,8 +117,7 @@
                 { title: "Title Generation", value: true },
                 { title: "Custom Description Length", value: true },
                 { title: "Edit Generations", value: true },
-                { title: "Preview Code", value: true },
-                { title: "Generations History", value: true },
+                { title: "Persist Generation History", value: true },
                 { title: "Max Keywords Count", value: 20 },
                 { title: "Monthly Generation Quota", value: 500 },
             ],
@@ -159,8 +165,19 @@
         }
     }
 
-    function subscribe() {
-        if (auth.currentUser) {
+    async function subscribe() {
+        const userRef = doc(firestore, "users", auth.currentUser.uid);
+        const userDoc = await getDoc(userRef);
+        const subscription = userDoc.data().subscription;
+
+        let paid;
+        if (subscription === null) {
+            paid = false;
+        } else {
+            paid = (new Date) < subscription;
+        }
+
+        if (auth.currentUser && !paid) {
             const fields = [
                 {
                     name: "lookup_key", 
@@ -187,6 +204,8 @@
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);
+        } else if (auth.currentUser && paid) {
+            navigateTo("/generator");
         } else {
             navigateTo("/auth");
         }

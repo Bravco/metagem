@@ -95,7 +95,7 @@
     import { required, minLength, email, sameAs } from "@vuelidate/validators";
 
     useHead({
-        title: "metagen | Auth",
+        title: "metagen | Authentication",
     });
 
     definePageMeta({
