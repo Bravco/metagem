@@ -91,8 +91,8 @@
 		</section>
 		<section id="faq">
 			<h2 v-motion="$motion()">Frequently asked <span>questions</span></h2>
-			<ul class="faq-list">
-				<li v-for="faq in faqs" v-motion="$motion(true, faq.id*300)" @click="selectFaqItem(faq.id)" class="faq-item">
+			<ul v-motion="$motion(true, 300)" class="faq-list">
+				<li v-for="faq in faqs" @click="selectFaqItem(faq.id)" class="faq-item">
 					<div class="faq-top">
 						<div class="faq-leading">
 							<span class="small-icon-container">
