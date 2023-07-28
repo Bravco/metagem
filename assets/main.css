@@ -53,10 +53,6 @@ h3 {
     font-size: 2rem;
 }
 
-h1 span, h2 span, h3 span {
-    color: var(--color-primary);
-}
-
 .page-heading {
     display: flex;
     flex-direction: column;
@@ -75,8 +71,8 @@ h1 span, h2 span, h3 span {
     color: var(--color-text-alt-dark);
 }
 
-.page-subtitle span {
-    color: var(--color-primary-alt);
+h1 span, h2 span, h3 span, .page-subtitle span {
+    color: var(--color-primary);
 }
 
 li {

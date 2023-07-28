@@ -1,7 +1,7 @@
 <template>
     <div>
         <NuxtLink class="logo" to="/" :class="{ disabled: !interactable }">
-            <Icon class="icon" name="fa6-solid:brain"/>
+            <Icon class="icon" name="fa6-solid:gem"/>
             metagem<span>.</span>
         </NuxtLink>
     </div>
