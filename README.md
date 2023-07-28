@@ -4,4 +4,4 @@ SasS product called **metagem** is here to help you generate custom metadata and
 
 ### Try it yourself
 
-Live DEMO: https://metagem.pro
+Official website: https://metagem.pro
