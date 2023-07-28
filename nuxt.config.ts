@@ -91,6 +91,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     compressPublicAssets: true,
+    preset: "firebase",
   },
   vite: {
     define: {

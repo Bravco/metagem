@@ -4,4 +4,4 @@ SasS product called **MetaGen** is here to help you generate custom metadata and
 
 ### Try it yourself
 
-Live DEMO: https://metagenerator.netlify.app
+Live DEMO: https://metagen-8faf5.web.app

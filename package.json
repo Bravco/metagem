@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy-firebase": "cd .output/server && rd /s /q node_modules && npm i && cd .. && firebase deploy"
   },
   "devDependencies": {
     "@invictus.codes/nuxt-vuetify": "^0.3.0",
@@ -14,6 +15,9 @@
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.0.0-rc.1",
     "@types/node": "^18.16.19",
+    "firebase-admin": "^11.10.1",
+    "firebase-functions": "^4.4.1",
+    "firebase-functions-test": "^3.1.0",
     "nuxt": "^3.6.2",
     "nuxt-chatgpt": "^0.1.10",
     "nuxt-icon": "^0.4.2"
@@ -23,7 +27,6 @@
     "@vuelidate/validators": "^2.0.3",
     "@vueuse/motion": "^2.0.0",
     "firebase": "^10.1.0",
-    "firebase-admin": "^11.10.1",
     "stripe": "^12.14.0"
   }
 }
