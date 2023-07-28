@@ -93,7 +93,18 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     preset: "firebase",
   },
+  vite: {
+    define: {
+      "process.env.DEBUG": false,
+    },
+  },
   chatgpt: {
     apiKey: process.env.OPENAI_API_KEY,
+  },
+  image: {
+    provider: "netlify",
+    netlify: {
+      baseURL: process.env.IMAGES_URL,
+    },
   },
 });
