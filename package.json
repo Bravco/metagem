@@ -7,7 +7,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy-firebase": "cd .output/server && rd /s /q node_modules && npm i && cd .. && firebase deploy"
+    "deploy-firebase": "npm run build && cd .output/server && rd /s /q node_modules && npm i && cd .. && firebase deploy"
   },
   "devDependencies": {
     "@invictus.codes/nuxt-vuetify": "^0.3.0",

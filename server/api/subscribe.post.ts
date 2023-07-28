@@ -3,8 +3,16 @@ import { getSubscribeUrl } from "~/server/services/stripeService";
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
-    const lookupKey = body.lookup_key;
-    const userId = body.user_id;
+
+    let lookupKey = body.lookup_key;
+    if (lookupKey === undefined) {
+        lookupKey = JSON.parse(Object.keys(body)[1]).lookup_key;
+    }
+
+    let userId = body.user_id;
+    if (userId === undefined) {
+        userId = JSON.parse(Object.keys(body)[1]).user_id;
+    }
 
     const userRef = firestore.doc(`users/${userId}`);
     const userSnapshot = await userRef.get();

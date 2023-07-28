@@ -99,7 +99,7 @@
                                         Generations:
                                         {{ generationsCount ? generationsCount : 0 }}
                                         /
-                                        {{ paid ? 500 : 5 }}
+                                        {{ paid ? 500 : 10 }}
                                     </span>
                                 </template>
                             </v-tooltip>
@@ -454,7 +454,7 @@
     async function generateMetadata() {
         const userRef = doc(firestore, "users", auth.currentUser.uid);
 
-        if ((paid.value === false && generationsCount.value >= 5) || (paid.value === true && generationsCount.value >= 500)) {
+        if ((paid.value === false && generationsCount.value >= 10) || (paid.value === true && generationsCount.value >= 500)) {
             errorMsg.value = true;
             return;
         }
