@@ -1,5 +1,5 @@
 {
-  "name": "metagen",
+  "name": "metagem",
   "private": true,
   "scripts": {
     "build": "nuxt build",

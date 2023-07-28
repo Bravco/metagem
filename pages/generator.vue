@@ -308,7 +308,7 @@
     import { collection, doc, onSnapshot, addDoc, updateDoc, getDocs, deleteDoc, deleteField, getDoc } from "firebase/firestore";
 
     useHead({
-        title: "metagen | Metadata Generator",
+        title: "metagem | Metadata Generator",
     });
 
     definePageMeta({

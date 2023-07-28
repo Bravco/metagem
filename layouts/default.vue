@@ -83,7 +83,7 @@
                     <NuxtLink to="/tos">Terms of Service</NuxtLink>
                 </li>
             </ul>
-            <p>&copy; 2023 metagen | All rights reserved</p>
+            <p>&copy; 2023 metagem | All rights reserved</p>
         </footer>
     </div>
 </template>

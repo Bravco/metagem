@@ -2,7 +2,7 @@
     <div>
         <NuxtLink class="logo" to="/" :class="{ disabled: !interactable }">
             <Icon class="icon" name="fa6-solid:brain"/>
-            metagen<span>.</span>
+            metagem<span>.</span>
         </NuxtLink>
     </div>
 </template>
