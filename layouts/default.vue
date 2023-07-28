@@ -167,7 +167,7 @@
             ];
 
             const form = document.createElement("form");
-            form.action = "/api/stripe/manageSubscription";
+            form.action = "/api/manageSubscription";
             form.method = "POST";
 
             fields.forEach(field => {

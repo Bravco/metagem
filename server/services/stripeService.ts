@@ -1,8 +1,8 @@
 import Stripe from "stripe";
 import { FieldValue } from "firebase-admin/firestore";
-import { firestore } from "../utils/firebase";
-import { stripe } from "../utils/stripe";
-import { SubPostRes } from "../types/SubPostRes";
+import { firestore } from "~/server/utils/firebase";
+import { stripe } from "~/server/utils/stripe";
+import { SubPostRes } from "~/server/types/SubPostRes";
 
 const config = useRuntimeConfig();
 

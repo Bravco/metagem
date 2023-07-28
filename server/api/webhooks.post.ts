@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { deleteCustomer, updateSubscription, deleteSubscription, refreshGenerationsCount } from "../../services/stripeService";
+import { deleteCustomer, updateSubscription, deleteSubscription, refreshGenerationsCount } from "~/server/services/stripeService";
 
 export default defineEventHandler(async (event) => {
     const stripeEvent = await readBody<Stripe.Event>(event);

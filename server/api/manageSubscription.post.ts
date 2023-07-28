@@ -1,5 +1,5 @@
-import { firestore } from "../../utils/firebase";
-import { stripe } from "../../utils/stripe";
+import { firestore } from "~/server/utils/firebase";
+import { stripe } from "~/server/utils/stripe";
 
 const config = useRuntimeConfig();
 
