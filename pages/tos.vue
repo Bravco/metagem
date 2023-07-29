@@ -9,7 +9,7 @@
 
 <script scoped>
   useHead({
-    title: "metagem | Terms of Service",
+    title: "Metagem | Terms of Service",
   });
 </script>
 

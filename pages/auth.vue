@@ -24,7 +24,7 @@
                 <div v-else class="auth-container">
                     <div v-if="isSigningUp">
                         <h3>Register for <span>free</span></h3>
-                        <p class="auth-subtitle">Sign up now to unlock exclusive features of metagem.</p>
+                        <p class="auth-subtitle">Sign up now to unlock exclusive features of Metagem.</p>
                     </div>
                     <div v-else>
                         <h3><span>Welcome</span> back!</h3>
@@ -95,7 +95,7 @@
     import { required, minLength, email, sameAs } from "@vuelidate/validators";
 
     useHead({
-        title: "metagem | Authentication",
+        title: "Metagem | Authentication",
     });
 
     definePageMeta({

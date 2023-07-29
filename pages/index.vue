@@ -56,7 +56,7 @@
 		<section id="about">
 			<div class="about-content">
 				<div v-motion="$motion()">
-					<h2>About <span>metagem</span></h2>
+					<h2>About <span>Metagem</span></h2>
 					<div class="about-text">
 						<p>Your AI-powered metadata ally. Elevate SEO with personalized meta tags, captivating titles, and compelling descriptions for digital success.</p>
 						<ul>
@@ -83,7 +83,7 @@
 							<Icon name="fa6-solid:traffic-light" size="2rem"/>
 						</span>
 						<h3>Enhance SEO and User Engagement</h3>
-						<p>By optimizing metadata, metagem improves search engine rankings, driving more organic traffic and enhancing the user's browsing experience.</p>
+						<p>By optimizing metadata, Metagem improves search engine rankings, driving more organic traffic and enhancing the user's browsing experience.</p>
 					</li>
 				</ul>
 			</div>
@@ -113,7 +113,7 @@
 
 <script setup>
 	useHead({
-        title: "metagem | Home",
+        title: "Metagem | Home",
     });
 	
 	const { $motion } = useNuxtApp();
@@ -121,17 +121,17 @@
 	const faqs = [
 		{
 			id: 0,
-			question: "Is metagem free?",
+			question: "Is Metagem free?",
 			answer: "Metagem is paid software product, but you can use the free version of the app with some restrictions.",
 		},
 		{
 			id: 1,
-			question: "What metagem can give to me?",
+			question: "What Metagem can give to me?",
 			answer: "Metagem's main purpose is to generate metadata and provide them to the user for his own use.",
 		},
 		{
 			id: 2,
-			question: "Who is the targeted audience of metagem?",
+			question: "Who is the targeted audience of Metagem?",
 			answer: "Our targeted audience are mainly website developers, SEO engineers, online businesses or web start-ups.",
 		},
 		{

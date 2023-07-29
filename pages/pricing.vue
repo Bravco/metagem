@@ -89,7 +89,7 @@
     import { required, email } from "@vuelidate/validators";
 
     useHead({
-        title: "metagem | Pricing",
+        title: "Metagem | Pricing",
     });
 
     const { $motion } = useNuxtApp();
