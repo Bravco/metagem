@@ -21,7 +21,7 @@
                         <form @submit.prevent="joinWaitlist" class="inputfield">
                             <input v-model="state.email" type="email" name="email" id="email" placeholder="Enter your email address" required>
                             <button type="submit" aria-label="Join the waitlist">
-                                <Icon name="fa6-solid:angle-right" size="1.5rem"/>
+                                <Icon name="fa6-solid:angle-right"/>
                             </button>
                         </form>
                         <p v-if="submittedWaitlist" class="success">Your email address was successfully added to the waitlist.</p>
@@ -219,10 +219,6 @@
         gap: 4rem;
     }
 
-	.page-title {
-		width: 70%;
-	}
-
 	.page-subtitle {
 		width: 60%;
 	}
@@ -279,7 +275,6 @@
     .info-item:first-child .inputfield input {
         width: 100%;
         padding: 1rem 2rem;
-        font-size: 1.25rem;
         border-radius: 8rem;
         background-color: white;
     }
@@ -287,10 +282,13 @@
     .info-item:first-child .inputfield button {
         width: 3rem;
         height: 3rem;
+        display: grid;
+        place-items: center;
         position: absolute;
         top: 50%;
         right: 1rem;
         transform: translateY(-50%);
+        font-size: 1.5rem;
         color: white;
         background-color: var(--color-primary);
         border-radius: 50%;
@@ -298,8 +296,8 @@
 
     .payment-methods {
         display: flex;
+        flex-wrap: wrap;
         gap: 1.5rem;
-        margin-top: .5rem;
         font-size: 2.5rem;
     }
 
@@ -384,14 +382,15 @@
     }
 
     .features {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
         padding: 1rem;
     }
 
     .feature {
-        display: grid;
-        grid-template-columns: 5fr 1fr;
+        display: flex;
+        justify-content: space-between;
         position: relative;
     }
 
@@ -406,8 +405,6 @@
 	}
 
     .feature-trailing {
-        display: grid;
-        place-items: center;
         font-weight: bold;
     }
 
@@ -419,14 +416,25 @@
         color: var(--color-pro);
     }
 
-    @media only screen and (max-width: 1480px) {
-        .main-grid {
+    @media only screen and (max-width: 768px) {
+        .info-item:first-child .inputfield input {
+            width: 100%;
+            padding: .5rem 1rem;
+        }
+
+        .info-item:first-child .inputfield button {
+            width: 2rem;
+            height: 2rem;
+            font-size: 1rem;
+        }
+
+        .plan-list {
             grid-template-columns: 1fr;
         }
     }
 
-    @media only screen and (max-width: 768px) {
-        .plan-list {
+    @media only screen and (max-width: 1480px) {
+        .main-grid {
             grid-template-columns: 1fr;
         }
     }

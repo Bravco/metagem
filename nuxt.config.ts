@@ -56,11 +56,11 @@ export default defineNuxtConfig({
         },
         {
           name: "description",
-          content: "AI-powered website for generating custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
+          content: "AI-powered metadata generator. Generates custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
         },
         {
           name: "keywords",
-          content: "automated metadata generator, AI-driven metadata, AI-based metadata, metadata automation, custom metadata, metadata optimization, metadata tagging, metadata analysis, metadata website, metadata search, metadata keywords, metadata creation, metadata generator, metadata management, metadata solutions, metadata software, metadata services, metadata development, metadata tool",
+          content: "meta, metadata, seo, seo optimization, online, online reach, online rankings, rankings, web, web app, saas, saas product, startup, targeted audience, generator, automated metadata generator, AI-driven metadata, AI-based metadata, metadata automation, custom metadata, metadata optimization, metadata tagging, metadata analysis, metadata website, metadata search, metadata keywords, metadata creation, metadata generator, metadata management, metadata solutions, metadata software, metadata services, metadata development, metadata tool",
         },
         {
           property: "og:type",
@@ -72,7 +72,7 @@ export default defineNuxtConfig({
         },
         {
           property: "og:description",
-          content: "AI-powered website for generating custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
+          content: "AI-powered metadata generator. Generates custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
         },
         {
           property: "twitter:card",
@@ -84,7 +84,7 @@ export default defineNuxtConfig({
         },
         {
           property: "twitter:description",
-          content: "AI-powered website for generating custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
+          content: "AI-powered metadata generator. Generates custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
         },
       ],
     },

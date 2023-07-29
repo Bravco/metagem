@@ -21,7 +21,7 @@
 			</div>
             <nuxt-img v-motion="$motion(false, 900)" class="preview-img" src="images/preview.webp" alt="preview-image"/>
         </section>
-		<section id="benefits">
+		<section>
 			<span v-motion="$motion()" class="big-bg-text">Better search rankings</span>
 			<ul class="benefit-list">
 				<li v-motion="$motion(true)" class="benefit-item">
@@ -132,7 +132,7 @@
 		{
 			id: 2,
 			question: "Who is the targeted audience of Metagem?",
-			answer: "Our targeted audience are mainly website developers, SEO engineers, online businesses or web start-ups.",
+			answer: "Our targeted audience are mainly website developers, SEO engineers, online businesses or start-ups.",
 		},
 		{
 			id: 3,
@@ -193,10 +193,6 @@
 		background: radial-gradient(ellipse at center, rgba(43, 228, 207, .25) 0%, transparent 50%);
 	}
 
-	.page-title {
-		width: 70%;
-	}
-
 	.page-subtitle {
 		width: 50%;
 	}
@@ -217,8 +213,9 @@
 	}
 
 	.big-bg-text {
+		white-space: nowrap;
 		font-weight: bold;
-		font-size: 7rem;
+		font-size: 8vw;
 		color: rgba(43, 228, 207, .25);
 	}
 
@@ -338,7 +335,26 @@
 		font-weight: bold;
 	}
 
+	@media only screen and (max-width: 768px) {
+		.btns {
+			flex-direction: column-reverse;
+			align-items: center;
+		}
+
+		.about-benefit-list {
+			flex-direction: column;
+		}
+	}
+
 	@media only screen and (max-width: 1024px) {
+		#hero {
+			perspective: unset;
+		}
+
+		.preview-img {
+			animation: none;
+		}
+
 		#about {
 			grid-template-columns: 1fr;
 		}
@@ -349,6 +365,10 @@
 	}
 
 	@media only screen and (max-width: 1480px) {
+		#hero {
+			perspective: 200vw;
+		}
+
 		.benefit-list {
 			grid-template-columns: 1fr;
 			gap: 2rem;

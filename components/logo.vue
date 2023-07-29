@@ -36,4 +36,10 @@
     .disabled {
         pointer-events: none;
     }
+
+    @media only screen and (max-width: 384px) {
+        .logo {
+            font-size: 1.5rem;
+        }
+    }
 </style>

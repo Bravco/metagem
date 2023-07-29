@@ -75,7 +75,7 @@
         </main>
         <footer>
             <Logo/>
-            <ul class="nav-list">
+            <ul class="footer-nav-list">
                 <li>
                     <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
                 </li>
@@ -213,9 +213,9 @@
         background-color: var(--color-background-primary);
     }
 
-    .nav-list {
+    .nav-list, .footer-nav-list {
         display: flex;
-        gap: 5rem;
+        gap: 4vw;
     }
 
     .nav-item {
@@ -420,6 +420,10 @@
 
         .hamburger.active::after {
             transform: rotate(45deg) translate(-7px, -7px);
+        }
+
+        footer {
+            grid-template-columns: 1fr;
         }
     }
 

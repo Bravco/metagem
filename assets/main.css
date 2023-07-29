@@ -50,7 +50,7 @@ h2 {
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .page-heading {
@@ -62,12 +62,13 @@ h3 {
 }
 
 .page-title, .page-subtitle {
+    width: 70%;
     text-align: center;
     font-weight: bold;
 }
 
 .page-subtitle {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--color-text-alt-dark);
 }
 
@@ -176,8 +177,44 @@ textarea {
     color: var(--color-primary);
 }
 
+@media only screen and (max-width: 384px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: unset;
+    }
+}
+
 @media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+
     .page-title, .page-subtitle {
+        width: 100%;
+    }
+
+    .page-subtitle {
+        font-size: unset;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .page-title {
         width: 100%;
     }
 }

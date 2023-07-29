@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="content-wrapper">
                     <h3>INPUT</h3>
-                    <ul class="content-list">
+                    <ul class="content-list no-overflow">
                         <li class="content-item">
                             <div class="content-item-title">
                                 <h4>Preview image</h4>
@@ -120,7 +120,7 @@
             <div class="container">
                 <div class="content-wrapper">
                     <h3>METADATA</h3>
-                    <ul class="content-list response-list">
+                    <ul class="content-list">
                         <li 
                             v-for="(response, index) in responses" 
                             :key="index"
@@ -158,11 +158,13 @@
                                 >{{ response.description }}</p>
                                 <ul v-if="selectedResponseIndex === index" class="keyword-list">
                                     <li v-for="(keyword, index) in response.keywords" :key="index" class="keyword-item">
-                                        <input
-                                            v-model="response.keywords[index]" type="text" 
-                                            :style="{width: (response.keywords[index].length*10 + 1) + 'px'}"
-                                            maxlength="20"
-                                        >
+                                        <p
+                                            :contenteditable="paid"
+                                            @input="(e) => {
+                                                response.keywords[index] = e.target.innerText;
+                                                updateFirestoreField(response, 'keywords');
+                                            }"
+                                        >{{ response.keywords[index] }}</p>
                                         <button @click.prevent="removeKeyword(keyword)">
                                             <Icon name="fa6-solid:xmark" size="1rem"/>
                                         </button>
@@ -552,14 +554,15 @@
         background-color: var(--color-background-secondary);
     }
 
-    .container:first-of-type {
-        height: fit-content;
+    .container:last-of-type {
+        display: grid;
+        grid-template-columns: 1fr 2rem 1fr;
     }
 
     .divider {
         height: 100%;
         display: grid;
-        grid-template-rows: 1fr calc(1rem + 2rem) 1fr;
+        grid-template-rows: 1fr 2.5rem 1fr;
         padding: 2rem 0;
     }
     
@@ -591,14 +594,15 @@
         gap: 1rem;
     }
 
-    .response-list {
+    .content-list:not(.no-overflow) {
         max-height: 100vh;
         overflow-y: auto;
     }
 
     .content-item {
         width: 100%;
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: .5rem;
     }
 
@@ -665,16 +669,15 @@
 
     .choice-list {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
         gap: .5rem;
     }
 
     .choice-item {
         width: 100%;
-        height: 100%;
         display: grid;
         place-items: center;
-        padding: .5rem 2rem;
+        padding: .5rem 0;
         border-radius: .5rem;
         background-color: var(--color-background-primary);
     }
@@ -689,7 +692,8 @@
     }
 
     .response-container {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: .5rem;
         padding: 1.5rem 2rem;
         border-radius: .5rem;
@@ -715,6 +719,7 @@
     }
 
     .keyword-item {
+        width: fit-content;
         display: flex;
         align-items: center;
         gap: .5rem;
@@ -896,6 +901,44 @@
     .upgrade-btn {
         color: var(--color-primary);
         text-decoration: underline;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .content-wrapper {
+            padding: .5rem;
+        }
+
+        .choice-item {
+            padding: .25rem 0;
+        }
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .container:last-of-type {
+            grid-template-columns: 1fr;
+        }
+
+        .divider {
+            width: 100%;
+            display: grid;
+            grid-template-rows: unset;
+            grid-template-columns: 1fr 2.5rem 1fr;
+            padding: 0 2rem;
+        }
+        
+        .divider-line {
+            width: 100%;
+            height: min-content;
+            margin: auto 0;
+            border: 1px solid var(--color-background-primary);
+        }
+
+        .divider-icon {
+            rotate: 90deg;
+            align-self: center;
+            justify-self: center;
+            color: var(--color-background-primary);
+        }
     }
 
     @media only screen and (max-width: 1280px) {
