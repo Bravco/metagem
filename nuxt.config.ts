@@ -48,11 +48,11 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "author",
-          content: "metagem",
+          content: "Metagem",
         },
         {
           name: "title",
-          content: "metagem - AI Metadata Generator",
+          content: "Metagem - AI Metadata Generator",
         },
         {
           name: "description",
@@ -68,7 +68,7 @@ export default defineNuxtConfig({
         },
         {
           property: "og:title",
-          content: "metagem - AI Metadata Generator",
+          content: "Metagem - AI Metadata Generator",
         },
         {
           property: "og:description",
@@ -80,7 +80,7 @@ export default defineNuxtConfig({
         },
         {
           property: "twitter:title",
-          content: "metagem - AI Metadata Generator",
+          content: "Metagem - AI Metadata Generator",
         },
         {
           property: "twitter:description",
