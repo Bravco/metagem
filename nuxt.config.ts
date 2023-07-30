@@ -64,7 +64,7 @@ export default defineNuxtConfig({
         },
         {
           name: "keywords",
-          content: "meta, metadata, seo, seo optimization, online, online reach, online rankings, rankings, web, web app, saas, saas product, startup, targeted audience, generator, automated metadata generator, AI-driven metadata, AI-based metadata, metadata automation, custom metadata, metadata optimization, metadata tagging, metadata analysis, metadata website, metadata search, metadata keywords, metadata creation, metadata generator, metadata management, metadata solutions, metadata software, metadata services, metadata development, metadata tool",
+          content: "meta tagging, seo ai, metadata tags for seo, improve seo, seo metadata, seo meta, website meta data, boost seo, seo with ai, ai for seo, seo and ai, ai powered seo, using ai for seo, metadata generator, meta data and seo, seo enhancement, website reach, improve site seo, ai meta description, seo ai generator, improve seo of your website, meta data generator, enhance seo, improve your website seo, ai seo generator, seo using ai, meta tags to improve seo, meta data in seo, meta descriptio ai, ai meta descriptions, seo metadata tags, generate meta tags for website, website metadata generator, improve seo for your website, seo metadata generator, seo metadata description, seo meta data generator, improve the seo, using ai in seo, boost website seo, boost website seo, website seo improvement, improve seo with meta tags, ai seo description generator",
         },
         {
           property: "og:type",

@@ -103,7 +103,7 @@
             features: [
                 { title: "Preview Image", value: true },
                 { title: "Title Generation", value: true },
-                { title: "Max Keywords Count", value: 3 },
+                { title: "Max Keywords Count", value: 5 },
                 { title: "Lifetime Generation Quota", value: 5 },
             ],
         },
@@ -120,7 +120,7 @@
                 { title: "Custom Description Length", value: true },
                 { title: "Edit Generations", value: true },
                 { title: "Persist Generation History", value: true },
-                { title: "Max Keywords Count", value: 20 },
+                { title: "Max Keywords Count", value: 50 },
                 { title: "Monthly Generation Quota", value: 500 },
             ],
         },

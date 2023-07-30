@@ -355,9 +355,9 @@
 
     const keywordsMax = computed(() => {
         if (paid.value === true) {
-            return 20;
+            return 50;
         } else {
-            return 3;
+            return 5;
         }
     });
 
@@ -472,18 +472,18 @@
         newResponse.createdDate = new Date;
         newResponse.author = websiteTitle.value;
 
-        const titleMsg = `Generate short metadata title for website: ${websiteDescription.value}`;
+        const titleMsg = `Generate short meta-title for website: ${websiteDescription.value}`;
         let generatedTitle = await chat(titleMsg)
         generatedTitle = generatedTitle.replaceAll('"', "");
         newResponse.title = websiteTitle.value.concat(" - ", generatedTitle);
 
-        const descriptionMsg = `Generate metadata description with length of ${descriptionLengths[selectedDescriptionLengthIndex.value].length} words for website: ${websiteDescription.value}`;
+        const descriptionMsg = `Generate meta-description with length of ${descriptionLengths[selectedDescriptionLengthIndex.value].length} words for website: ${websiteDescription.value}`;
         let generatedDescription = await chat(descriptionMsg);
         generatedDescription = generatedDescription.replaceAll('"', "");
         newResponse.description = generatedDescription;
 
         if (keywordsCount.value > 0) {
-            const keywordMsg = `Generate ${keywordsCount.value} metadata keywords in a single line without list style for website: ${websiteDescription.value}`;
+            const keywordMsg = `Generate ${keywordsCount.value} meta seo keywords in a single line without list style for website: ${websiteDescription.value}`;
             let generatedKeywords = await chat(keywordMsg);
             if (generatedKeywords.endsWith(".")) {
                 generatedKeywords = generatedKeywords.replace(/\.$/, "");
