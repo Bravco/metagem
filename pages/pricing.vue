@@ -219,10 +219,6 @@
         gap: 4rem;
     }
 
-	.page-subtitle {
-		width: 60%;
-	}
-
     .main-grid {
         width: 100%;
         height: 100%;

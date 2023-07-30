@@ -270,7 +270,8 @@
 
     .auth-container {
         width: 30rem;
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 2rem;
         padding: 2rem;
         border-radius: .5rem;
@@ -289,7 +290,8 @@
     }
 
     .inputfield {
-        display: grid;
+        display: flex;
+        flex-direction: column;
     }
 
     .inputfield input {
@@ -357,7 +359,7 @@
 
     @media only screen and (max-width: 768px) {
         .auth-container {
-            width: 90%;
+            width: 100%;
         }
     }
 

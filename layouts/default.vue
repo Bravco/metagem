@@ -63,8 +63,8 @@
                             </li>
                         </ul>
                     </div>
-                    <button v-else @click.prevent="navigateTo('/auth')" class="btn">
-                        Sign in
+                    <button v-else @click.prevent="navigateTo('/auth')" class="auth-btn btn">
+                        <span>Sign in</span>
                         <Icon name="fa6-solid:arrow-right-to-bracket"/>
                     </button>
                 </div>
@@ -332,6 +332,19 @@
 
     .router-link-exact-active {
         color: var(--color-primary);
+    }
+
+    @media only screen and (max-width: 768px) {
+        .auth-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            padding: unset;
+            border-radius: 50%;
+        }
+
+        .auth-btn span {
+            display: none;
+        }
     }
 
     @media only screen and (max-width: 1024px) {

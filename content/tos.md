@@ -10,11 +10,11 @@
 
   
 
-We are metagen ("**Company**," "**we**," "**us**," "**our**"), a company registered in Slovakia.
+We are Metagem ("**Company**," "**we**," "**us**," "**our**"), a company registered in Slovakia.
 
   
 
-We operate the website [https://metagenerator.netlify.app](https://metagenerator.netlify.app) (the "**Site**"), as well as any other related products and services that refer or link to these legal terms (the "**Legal Terms**") (collectively, the "**Services**").
+We operate the website [https://metagem.pro](https://metagem.pro) (the "**Site**"), as well as any other related products and services that refer or link to these legal terms (the "**Legal Terms**") (collectively, the "**Services**").
 
   
 
@@ -26,7 +26,7 @@ You can contact us by phone at +421 949 725 726, email at mh.bravco@gmail.com.
 
   
 
-These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("**you**"), and metagen, concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("**you**"), and Metagem, concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
 
   
 
@@ -399,7 +399,7 @@ We cannot guarantee the Services will be available at all times. We may experien
 
   
 
-These Legal Terms are governed by and interpreted following the laws of Slovakia, and the use of the United Nations Convention of Contracts for the International Sales of Goods is expressly excluded. If your habitual residence is in the EU, and you are a consumer, you additionally possess the protection provided to you by obligatory provisions of the law in your country to residence. metagen and yourself both agree to submit to the non-exclusive jurisdiction of the courts of Kosice, which means that you may make a claim to defend your consumer protection rights in regards to these Legal Terms in Slovakia, or in the EU country in which you reside.
+These Legal Terms are governed by and interpreted following the laws of Slovakia, and the use of the United Nations Convention of Contracts for the International Sales of Goods is expressly excluded. If your habitual residence is in the EU, and you are a consumer, you additionally possess the protection provided to you by obligatory provisions of the law in your country to residence. Metagem and yourself both agree to submit to the non-exclusive jurisdiction of the courts of Kosice, which means that you may make a claim to defend your consumer protection rights in regards to these Legal Terms in Slovakia, or in the EU country in which you reside.
 
   
 
@@ -511,7 +511,7 @@ In order to resolve a complaint regarding the Services or to receive further inf
 
   
 
-**metagen**
+**Metagem**
 
 ****Slovakia****
 

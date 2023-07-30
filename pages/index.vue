@@ -193,10 +193,6 @@
 		background: radial-gradient(ellipse at center, rgba(43, 228, 207, .25) 0%, transparent 50%);
 	}
 
-	.page-subtitle {
-		width: 50%;
-	}
-
 	.btns {
 		display: flex;
 		gap: 2rem;
@@ -342,7 +338,7 @@
 		}
 
 		.about-benefit-list {
-			flex-direction: column;
+			flex-direction: column-reverse;
 		}
 	}
 

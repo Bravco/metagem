@@ -62,12 +62,16 @@ h3 {
 }
 
 .page-title, .page-subtitle {
-    width: 70%;
     text-align: center;
     font-weight: bold;
 }
 
+.page-title {
+    width: 75%;
+}
+
 .page-subtitle {
+    width: 50%;
     font-size: 1.25rem;
     color: var(--color-text-alt-dark);
 }
@@ -193,19 +197,15 @@ textarea {
 
 @media only screen and (max-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 3rem;
     }
     
     h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     
     h3 {
         font-size: 1.25rem;
-    }
-
-    .page-title, .page-subtitle {
-        width: 100%;
     }
 
     .page-subtitle {
@@ -214,7 +214,7 @@ textarea {
 }
 
 @media only screen and (max-width: 1024px) {
-    .page-title {
+    .page-title, .page-subtitle {
         width: 100%;
     }
 }

@@ -6,9 +6,9 @@
 
   
 
-This privacy notice for metagen ("**we**," "**us**," or "**our**"), describes how and why we might collect, store, use, and/or share ("**process**") your information when you use our services ("**Services**"), such as when you:
+This privacy notice for Metagem ("**we**," "**us**," or "**our**"), describes how and why we might collect, store, use, and/or share ("**process**") your information when you use our services ("**Services**"), such as when you:
 
-*   Visit our website at [https://metagenerator.netlify.app](https://metagenerator.netlify.app), or any website of ours that links to this privacy notice
+*   Visit our website at [https://metagem.pro](https://metagem.pro), or any website of ours that links to this privacy notice
 
 *   Engage with us in other related ways, including any sales, marketing, or events
 
@@ -321,7 +321,7 @@ If you have questions or comments about this notice, you may email us at mh.brav
 
   
 
-metagen
+Metagem
 
 Slovakia
 
