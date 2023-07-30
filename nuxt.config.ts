@@ -47,6 +47,10 @@ export default defineNuxtConfig({
       },
       meta: [
         {
+          name: "robots",
+          content: "robots: index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+        },
+        {
           name: "author",
           content: "Metagem",
         },
@@ -67,12 +71,24 @@ export default defineNuxtConfig({
           content: "website",
         },
         {
+          property: "og:site_name",
+          content: "Metagem",
+        },
+        {
+          property: "og:url",
+          content: "https://metagem.pro",
+        },
+        {
           property: "og:title",
           content: "Metagem - AI Metadata Generator",
         },
         {
           property: "og:description",
           content: "AI-powered metadata generator. Generates custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
+        },
+        {
+          property: "og:image",
+          content: "images/graphics.webp",
         },
         {
           property: "twitter:card",
@@ -85,6 +101,10 @@ export default defineNuxtConfig({
         {
           property: "twitter:description",
           content: "AI-powered metadata generator. Generates custom metadata quickly and accurately. Automated system provides fast, reliable results. Easy to use interface. Get the metadata you need in minutes.",
+        },
+        {
+          property: "twitter:image",
+          content: "images/graphics.webp",
         },
       ],
     },

@@ -204,12 +204,14 @@
 <pre><code id="meta-code">&lt;title&gt;{{ response.title }}&lt;/title&gt;
 &lt;meta charset="utf-8"&gt;
 &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"&gt;
 
 &lt;meta name="author" content="{{ response.author }}"&gt;
 &lt;meta name="title" content="{{ response.title }}"&gt;
 &lt;meta name="description" content="{{ response.description }}"&gt;
 {{ response.keywords ? `&lt;meta name="keywords" content="${response.keywords.join(", ")}"&gt;\n` : "" }}
 &lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:site_name" content="{{ response.author }}"&gt;
 &lt;meta property="og:url" content="<span class="meta-code-highlight">PASTE YOUR WEBSITE URL HERE</span>"&gt;
 &lt;meta property="og:title" content="{{ response.title }}"&gt;
 &lt;meta property="og:description" content="{{ response.description }}"&gt;
